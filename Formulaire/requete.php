@@ -85,17 +85,9 @@ if (isset($_POST['Coords'])) {
 
 /*récup form pièce joint*/
 if (isset($_POST['pieceJiont'])) {
-    $CarteId = $_FILES["CarteId"]["tmp_name"];
-    $CarteVitale = $_FILES["CarteVitale"]["tmp_name"];
-    $CarteMutuel = $_FILES["CarteMutuel"]["tmp_name"];
-    $LivretFamille = $_FILES["LivretFamille"]["tmp_name"];
-    $DecisionJuge = $_FILES["DecisionJuge"]["tmp_name"];
-    $AutorisationSoin = $_FILES["AutorisationSoin"]["tmp_name"];
-
     $extentionValides = array('jpg', 'png', 'jpeg', 'pdf');
 
-    uploadFichiers($CarteId, $nomF, $extentionValides, $CarteVitale, $CarteMutuel,
-                    $LivretFamille, $DecisionJuge, $AutorisationSoin);
+    uploadFichiers($extentionValides);
     $_SESSION["form"] = 0;
 }
 
@@ -155,8 +147,16 @@ function  hospi($NomSecu, $NumSecu, $Assurance, $ALD, $NomMutu, $NumAdherent, $T
     header("location: index.php");
 }
 
-function uploadFichiers($CarteId, $nomF, $extentionValides, $CarteVitale, $CarteMutuel,
-                        $LivretFamille, $DecisionJuge, $AutorisationSoin ) {
+function uploadFichiers($extentionValides) {
+
+    //Insert in bdd
+    /*hospi($_SESSION["NomSecu"], $_SESSION["NumSecu"], $_SESSION["Assurance"], 
+        $_SESSION["ALD"], $_SESSION["NomMutu"], $_SESSION["NumAdherent"], $_SESSION["TypeChambre"], 
+        $_SESSION["civ"], $_SESSION["nom"], $_SESSION["epouse"], $_SESSION["prenom"], 
+        $_SESSION["naissance"], $_SESSION["adresse"], $_SESSION["cp"], $_SESSION["ville"], 
+        $_SESSION["mail"], $_SESSION["tel"],
+        $_SESSION["preadd"], $_SESSION["datehospi"], $_SESSION["heurehospi"], $_SESSION["nompersonnel"]);*/
+    
     //Id Card
     $fichierUpload = strtolower(substr(strchr($_FILES["CarteId"]["name"], '.'), 1));
     if(in_array($fichierUpload, $extentionValides)) {
@@ -165,9 +165,10 @@ function uploadFichiers($CarteId, $nomF, $extentionValides, $CarteVitale, $Carte
         $fichier = $nomF.'.'.$fichierUpload;
         $cheminFichier = "../Fichiers/".$fichier;
         $uploadFichier = move_uploaded_file($_FILES['CarteId']["tmp_name"], $cheminFichier);
-    }
-    if(is_readable($cheminFichier)) {
-        uploadFichier($_SESSION["NumSecu"], $_FILES['CarteId']["tmp_name"]);
+
+        if(is_readable($cheminFichier)) {
+            uploadFichier($_SESSION["NumSecu"], $_FILES['CarteId']["tmp_name"]);
+        }
     }
 
     // Vitale Card
@@ -178,9 +179,10 @@ function uploadFichiers($CarteId, $nomF, $extentionValides, $CarteVitale, $Carte
         $fichier = $nomF.'.'.$fichierUpload;
         $cheminFichier = "../Fichiers/".$fichier;
         $uploadFichier = move_uploaded_file($_FILES['CarteVitale']["tmp_name"], $cheminFichier);
-    }
-    if(is_readable($cheminFichier)) {
-        uploadFichier($_SESSION["NumSecu"], $_FILES['CarteVitale']["tmp_name"]);
+
+        if(is_readable($cheminFichier)) {
+            uploadFichier($_SESSION["NumSecu"], $_FILES['CarteVitale']["tmp_name"]);
+        }
     }
 
     // Carte Mutuel
@@ -191,9 +193,10 @@ function uploadFichiers($CarteId, $nomF, $extentionValides, $CarteVitale, $Carte
         $fichier = $nomF.'.'.$fichierUpload;
         $cheminFichier = "../Fichiers/".$fichier;
         $uploadFichier = move_uploaded_file($_FILES['CarteMutuel']["tmp_name"], $cheminFichier);
-    }
-    if(is_readable($cheminFichier)) {
-        uploadFichier($_SESSION["NumSecu"], $_FILES['CarteMutuel']["tmp_name"]);
+
+        if(is_readable($cheminFichier)) {
+            uploadFichier($_SESSION["NumSecu"], $_FILES['CarteMutuel']["tmp_name"]);
+        }
     }
 
     //Test si le patient es mineur
@@ -207,10 +210,12 @@ function uploadFichiers($CarteId, $nomF, $extentionValides, $CarteVitale, $Carte
             $fichier = $nomF.'.'.$fichierUpload;
             $cheminFichier = "../Fichiers/".$fichier;
             $uploadFichier = move_uploaded_file($_FILES['LivretFamille']["tmp_name"], $cheminFichier);
+
+            if(is_readable($cheminFichier)) {
+                uploadFichier($_SESSION["NumSecu"], $_FILES['LivretFamille']["tmp_name"]);
+            }
         }
-        if(is_readable($cheminFichier)) {
-            uploadFichier($_SESSION["NumSecu"], $_FILES['LivretFamille']["tmp_name"]);
-        }
+
         // DecisionJuge
         $fichierUpload = strtolower(substr(strchr($_FILES["DecisionJuge"]["name"], '.'), 1));
         if(in_array($fichierUpload, $extentionValides)) {
@@ -219,10 +224,12 @@ function uploadFichiers($CarteId, $nomF, $extentionValides, $CarteVitale, $Carte
             $fichier = $nomF.'.'.$fichierUpload;
             $cheminFichier = "../Fichiers/".$fichier;
             $uploadFichier = move_uploaded_file($_FILES['DecisionJuge']["tmp_name"], $cheminFichier);
+
+            if(is_readable($cheminFichier)) {
+                uploadFichier($_SESSION["NumSecu"], $_FILES['DecisionJuge']["tmp_name"]);
+            }
         }
-        if(is_readable($cheminFichier)) {
-            uploadFichier($_SESSION["NumSecu"], $_FILES['DecisionJuge']["tmp_name"]);
-        }
+
         // AutorisationSoin
         $fichierUpload = strtolower(substr(strchr($_FILES["AutorisationSoin"]["name"], '.'), 1));
         if(in_array($fichierUpload, $extentionValides)) {
@@ -231,20 +238,12 @@ function uploadFichiers($CarteId, $nomF, $extentionValides, $CarteVitale, $Carte
             $fichier = $nomF.'.'.$fichierUpload;
             $cheminFichier = "../Fichiers/".$fichier;
             $uploadFichier = move_uploaded_file($_FILES['AutorisationSoin']["tmp_name"], $cheminFichier);
-        }
-        if(is_readable($cheminFichier)) {
-            uploadFichier($_SESSION["NumSecu"], $_FILES['AutorisationSoin']["tmp_name"]);
+            
+            if(is_readable($cheminFichier)) {
+                uploadFichier($_SESSION["NumSecu"], $_FILES['AutorisationSoin']["tmp_name"]);
+            }
         }
     }
-
-
-
-    /*hospi($_SESSION["NomSecu"], $_SESSION["NumSecu"], $_SESSION["Assurance"], 
-        $_SESSION["ALD"], $_SESSION["NomMutu"], $_SESSION["NumAdherent"], $_SESSION["TypeChambre"], 
-            $_SESSION["civ"], $_SESSION["nom"], $_SESSION["epouse"], $_SESSION["prenom"], 
-            $_SESSION["naissance"], $_SESSION["adresse"], $_SESSION["cp"], $_SESSION["ville"], 
-            $_SESSION["mail"], $_SESSION["tel"],
-            $_SESSION["preadd"], $_SESSION["datehospi"], $_SESSION["heurehospi"], $_SESSION["nompersonnel"]);*/
 }
 
 function uploadFichier($NumSecu, $nomF) {
@@ -265,4 +264,5 @@ function isMineur($id) {
     $stmt->execute(array($id));
     return $stmt;
 }
+
 ?>
