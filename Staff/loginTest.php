@@ -15,16 +15,16 @@
     //test identifiant
     $authentification = authentification($login);
     $auth = $authentification->fetch();
-    $pass = $auth["mdp"];
+    $pass = $auth["MDP"];
 
-    switch($auth["count(login)"]) {
+    switch($auth["count(Login)"]) {
         case 1 :
             if(password_verify($mdp, $pass)) {
                 $_SESSION["login"] = $login;
                 //recup id user
                 $return_id_user = return_id_user($login);
                 $return_id = $return_id_user->fetchAll();
-                foreach($return_id as $id) {$_SESSION["idRole"] = $id["IdRoles"]; $_SESSION["idUser"] = $id["idUser"];}
+                foreach($return_id as $id) {$_SESSION["idRole"] = $id["IdRole"]; $_SESSION["idUser"] = $id["IdUser"];}
                 //logs
                 log_conexion("Conexion de l'utilisateur ".$login, $date, $_SESSION["idUser"]);
                 switch($_SESSION["idRole"]) {

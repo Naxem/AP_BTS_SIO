@@ -23,7 +23,7 @@
     //Conexion
     function authentification($login) {
         $pdo = connexion_bdd();
-        $stmt=$pdo->prepare("SELECT count(login), mdp FROM user
+        $stmt=$pdo->prepare("SELECT count(Login), MDP FROM user
         where login = ?;");
         $stmt->execute(array($login));
         return $stmt;
@@ -31,7 +31,7 @@
 
     function return_id_user($login) {
         $pdo = connexion_bdd();
-        $stmt = $pdo ->prepare("SELECT IdRoles, idUser FROM user
+        $stmt = $pdo ->prepare("SELECT IdRole, IdUser FROM user
         where login = ?;");
         $stmt->execute(array($login));
         return $stmt;
@@ -41,7 +41,7 @@
     function log_conexion($label, $date, $user) {
         $pdo = connexion_bdd();
         $stmt = $pdo ->prepare("INSERT INTO logs
-        (label, `date`, `user`)
+        (Label, `Date`, `IdUser`)
         VALUES(?, ?, ?);");
         $stmt->execute(array($label, $date, $user));
         return $stmt;
@@ -51,29 +51,29 @@
     function create_users($pass, $login, $role) {
         $pdo = connexion_bdd();
         $stmt=$pdo->prepare("INSERT INTO user 
-        (login, MDP, IdRoles) VALUES(?, ?, ?);");
+        (Login, MDP, IdRole) VALUES(?, ?, ?);");
         $stmt->execute(array($login, $pass, $role));
     }
 
     //del
     function supp($numSecu) {
         $pdo = connexion_bdd();
-        $sql="DELETE FROM ap.hospi
+        $sql="DELETE FROM hospi
         WHERE NumSecu = ?";     
         $stmt=$pdo->prepare($sql);
         $stmt->execute(array($numSecu));  
 
-        $sql="DELETE FROM ap.couverturesociale
+        $sql="DELETE FROM couverturesociale
         WHERE NumSecu = ?";     
         $stmt=$pdo->prepare($sql);
         $stmt->execute(array($numSecu));  
 
-        $sql="DELETE FROM ap.patients
+        $sql="DELETE FROM patients
         WHERE NumSecu = ?";     
         $stmt=$pdo->prepare($sql);
         $stmt->execute(array($numSecu));
 
-        $sql="DELETE FROM ap.piecesjointes
+        $sql="DELETE FROM piecesjointes
         WHERE NumSecu = ?";     
         $stmt=$pdo->prepare($sql);
         $stmt->execute(array($numSecu));

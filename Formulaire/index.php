@@ -1,6 +1,8 @@
 <?php 
     require("requete.php");
 
+    $_SESSION["modif_patient"]=$_SESSION["modif_patient"];
+
     if ($_SESSION["modif_patient"]) {
         $modif = true;
         $_SESSION["form"] = 0;
@@ -197,8 +199,8 @@
                     <span>Attention les seuls formats apccecter sont : png, jpeg, jpg et pdf !</span>
 
                     <p>Carte d'indentite (reto/verso) :*<br><input type="file" value="Choisir un fichier" name="CarteId" required></p>
-                    <p>Carte vitale :*<br><input type="file" value="Choisir un fichier" name="CarteVitale" required></p>
-                    <p>Carte de mutuelle :*<br><input type="file" value="Choisir un fichier" name="CarteMutuel" required></p>
+                    <p>Carte vitale :*<br><input type="file" value="Choisir un fichier" name="CarteVitale" require></p>
+                    <p>Carte de mutuelle :*<br><input type="file" value="Choisir un fichier" name="CarteMutuel" require></p>
 
                     <p>Si enfant mineur seulment :</p>
                     <p>Livrer de famille (pour enfant mineur) :<br><input type="file" value="Choisir un fichier" name="LivretFamille"></p>

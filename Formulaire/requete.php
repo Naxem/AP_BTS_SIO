@@ -1,6 +1,6 @@
 <?php 
 
-require("../connexion_BDD.php");
+require("../Staff/connexion_BDD.php");
 session_start();
 
 /*récup form préad*/
@@ -52,15 +52,21 @@ if (isset($_POST['Coords'])) {
     $_SESSION["telppre"] = $_POST["telppre"];
     $_SESSION["adresseppre"] = $_POST["adresseppre"];
 
-    $isExiste = testContact($_SESSION["nomppre"], $_SESSION["prenomppre"], 
-    $_SESSION["telppre"], $_SESSION["adresseppre"]);
+    $isExiste = testContact($_SESSION["telppre"], $_SESSION["adresseppre"], 
+    $_SESSION["nomppre"], $_SESSION["prenomppre"]);
     $row = $isExiste->fetch();
-    if ($row["count(*)"]) {
-        getIdContact($_SESSION["nomppre"], $_SESSION["prenomppre"], 
+    if ($row["count(*)"] < 0) {
+        $PPre = getIdContact($_SESSION["nomppre"], $_SESSION["prenomppre"], 
         $_SESSION["telppre"], $_SESSION["adresseppre"]);
+        $PersonnePre = $PPre->fetchAll();
+        foreach($PerosnneConf as $res) {$_SESSION["PersonnePre"] = $res["IdProche"];}
     } else {
-        insertContact($_SESSION["nomppre"], $_SESSION["prenomppre"], 
+        insertContact($_SESSION["telppre"], $_SESSION["nomppre"], $_SESSION["prenomppre"], 
+        $_SESSION["adresseppre"]);
+        $PPre = getIdContact($_SESSION["nomppre"], $_SESSION["prenomppre"], 
         $_SESSION["telppre"], $_SESSION["adresseppre"]);
+        $PersonnePre = $PPre->fetchAll();
+        foreach($PersonnePre as $res) {$_SESSION["PersonnePre"] = $res["IdProche"];}
     }
 
     $_SESSION["nomconf"] = $_POST["nomconf"];
@@ -68,17 +74,22 @@ if (isset($_POST['Coords'])) {
     $_SESSION["telconf"] = $_POST["telconf"];
     $_SESSION["adresseconf"] = $_POST["adresseconf"];
 
-    $isExiste = testContact($_SESSION["nomconf"], $_SESSION["prenomconf"], 
-    $_SESSION["telconf"], $_SESSION["adresseconf"]);
+    $isExiste = testContact($_SESSION["telconf"], $_SESSION["adresseconf"], 
+    $_SESSION["nomconf"], $_SESSION["prenomconf"]);
     $row = $isExiste->fetch();
-    if ($row["count(*)"]) {
-        getIdContact($_SESSION["nomconf"], $_SESSION["prenomconf"], 
+    if ($row["count(*)"] < 0) {
+        $PConf = getIdContact($_SESSION["nomconf"], $_SESSION["prenomconf"], 
         $_SESSION["telconf"], $_SESSION["adresseconf"]);
+        $PerosnneConf = $PConf->fetchAll();
+        foreach($PerosnneConf as $res) {$_SESSION["PersonneConf"] = $res["IdProche"];}
     }else {
-        insertContact($_SESSION["nomconf"] , $_SESSION["prenomconf"], 
+        insertContact($_SESSION["telconf"], $_SESSION["nomconf"], $_SESSION["prenomconf"], 
+        $_SESSION["adresseconf"]);
+        $PConf = getIdContact($_SESSION["nomconf"], $_SESSION["prenomconf"], 
         $_SESSION["telconf"], $_SESSION["adresseconf"]);
+        $PerosnneConf = $PConf->fetchAll();
+        foreach($PerosnneConf as $res) {$_SESSION["PersonneConf"] = $res["IdProche"];}
     }
-
     $_SESSION["form"] = 4;
     header("location: index.php");
 }
@@ -92,21 +103,22 @@ if (isset($_POST['pieceJiont'])) {
 }
 
 /**************************ENVOIE A LA BDD ************************************* */
-function getIdContact($tel, $nom, $prenom, $adresse) {
+function getIdContact($nom, $prenom, $tel, $adresse) {
     $pdo = connexion_bdd();
-    $sql="select IdProche from proche;";
+    $sql="select IdProche from proche
+    where Nom  = ? and Prenom = ? and Tel = ? and Adresse = ?;";
     $stmt=$pdo->prepare($sql);
-    $stmt->execute();
+    $stmt->execute(array($nom, $prenom, $tel, $adresse));
     return $stmt;
 }
 
 function insertContact($tel, $nom, $prenom, $adresse) {
     $pdo = connexion_bdd();
-    $sql="INSERT INTO ap.proche
-    (Tel, Adresse, Nom, Prenom)
+    $sql="INSERT INTO proche
+    (Prenom, Nom, Adresse, Tel)
     VALUES(?,?,?,?);";
     $stmt=$pdo->prepare($sql);
-    $stmt->execute(array($tel, $nom, $prenom, $adresse));
+    $stmt->execute(array($prenom, $nom, $adresse, $tel));
 }
 
 function testContact($tel, $nom, $prenom, $adresse) {
@@ -114,35 +126,42 @@ function testContact($tel, $nom, $prenom, $adresse) {
     $sql="select count(*) from proche p where tel = ? and Adresse = ?
     and Nom = ? and Prenom = ?;";
     $stmt=$pdo->prepare($sql);
-    $stmt->execute(array($tel, $nom, $prenom, $adresse));
+    $stmt->execute(array($tel, $adresse, $nom, $prenom));
     return $stmt;
 }
 
 function  hospi($NomSecu, $NumSecu, $Assurance, $ALD, $NomMutu, $NumAdherent, $TypeChambre, 
           $civ, $nom, $epouse, $prenom, $naissance, $adresse, $cp, $ville, $mail, $tel,
-          $preadd, $datehospi, $heurehospi, $nompersonnel) {
+          $preadd, $datehospi, $heurehospi, $nompersonnel, $PersonneConf, $PersonnePre) {
+
+    $diff = date_diff(date_create($naissance), date_create(date("Y-m-d")));
+    if ($diff->format('%y') >= 18){
+        $age = 0;
+    }
+    else {
+        $age = 1;
+    }
 
     $pdo = connexion_bdd();
-
-    $sql="INSERT INTO ap.couverturesociale
+    $sql="INSERT INTO couverture_sociale
     (NomSecu, NumSecu, Assurance, ALD, NomMutu, NumAdherent, TypeChambre)
     VALUES(?,?,?,?,?,?,?);";
     $stmt=$pdo->prepare($sql);
     $stmt->execute(array($NomSecu, $NumSecu, $Assurance, $ALD, $NomMutu, $NumAdherent, $TypeChambre));
 
-    $sql="INSERT INTO ap.hospi
+    $sql="INSERT INTO hospi
     (DateHospi, HeureHospi, PreAdd, IdPersonnel, NumSecu)
     VALUES(?,?,?,?,?);";
     $stmt=$pdo->prepare($sql);
     $stmt->execute(array($datehospi, $heurehospi, $preadd, $nompersonnel, $NumSecu));
 
-    $sql="INSERT INTO ap.patients 
+    $sql="INSERT INTO patients 
     (Civ, NomNaissance, NomEpouse, PrenomPatient, NaissancePatient, AdressePatient,
     TelPatient,CPPatient, VillePatient, MailPatient, NumSecu, Mineur, IdProcheConf, idProchePre)
     VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
     $stmt=$pdo->prepare($sql);
     $stmt->execute(array($civ, $nom, $epouse, $prenom, $naissance, $adresse, $tel, $cp, $ville, 
-    $mail, $NumSecu, 0, 1, 1));
+    $mail, $NumSecu, $age, $PersonneConf, $PersonnePre));
 
     header("location: index.php");
 }
@@ -153,8 +172,8 @@ function uploadFichiers($extentionValides) {
         $_SESSION["ALD"], $_SESSION["NomMutu"], $_SESSION["NumAdherent"], $_SESSION["TypeChambre"], 
         $_SESSION["civ"], $_SESSION["nom"], $_SESSION["epouse"], $_SESSION["prenom"], 
         $_SESSION["naissance"], $_SESSION["adresse"], $_SESSION["cp"], $_SESSION["ville"], 
-        $_SESSION["mail"], $_SESSION["tel"],
-        $_SESSION["preadd"], $_SESSION["datehospi"], $_SESSION["heurehospi"], $_SESSION["nompersonnel"]);
+        $_SESSION["mail"], $_SESSION["tel"], $_SESSION["preadd"], $_SESSION["datehospi"], 
+        $_SESSION["heurehospi"], $_SESSION["nompersonnel"], $_SESSION["PersonneConf"], $_SESSION["PersonnePre"]);
     
     //Id Card
     $fichierUpload = strtolower(substr(strchr($_FILES["CarteId"]["name"], '.'), 1));
@@ -247,7 +266,7 @@ function uploadFichiers($extentionValides) {
 
 function uploadFichier($NumSecu, $nomF) {
     $pdo = connexion_bdd();
-    $sql="INSERT INTO ap.piecesjointes 
+    $sql="INSERT INTO piecesjointes 
     (CarteId, CarteVitale, CarteMutuel, LivretFamille, AutorisationSoin, DecisionJuge, 
     NumSecu)
     VALUES(?, ?, ?, ?, ?, ?, ?);";
@@ -267,8 +286,8 @@ function isMineur($id) {
 function getMedecin() {
     $pdo = connexion_bdd();
     $sql='select p.PrenomPersonnel, p.NomPersonnel from personnel p inner join
-    services s on p.IdServices = s.IdServices
-    where s.NomService = "medecin";';
+    roles r on p.IdService = r.IdRole
+    where r.Libelle = "medecin";';
     $stmt=$pdo->prepare($sql);
     $stmt->execute();
     return $stmt;

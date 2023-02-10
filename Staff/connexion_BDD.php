@@ -2,9 +2,9 @@
     function connexion_bdd()
     {
         $host = 'localhost:3306';
-        $db   = 'ap';
-        $user = 'root';
-        $pass = '';
+        $db   = 'ap2';
+        $user = 'maxens';
+        $pass = 'azerty';
         $dsn = "mysql:host=$host;dbname=$db";
         $options = [
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,

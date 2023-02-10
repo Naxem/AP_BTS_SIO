@@ -3,6 +3,9 @@
     padding:0;
     box-sizing: border-box;
 }
+
+
+
 .entier{
     height: 100vh;
     width: 100vw;
@@ -21,6 +24,8 @@
     box-shadow: 0.2vw 0.1vw 0.2vw black;
     background-color: white;
 }
+
+
 .titre_top{
     margin-left:-10%;
     top:0.5vw;
@@ -30,6 +35,7 @@
     position:middle;
     
 }
+
 .connexion{
     position:right;
     margin-right: -18vw;
@@ -39,6 +45,7 @@
     border:solid black 0.1vw;
     text-align: center;
 }
+
 .bouton{
     background-color: white;
     height: 8vh;
@@ -62,11 +69,14 @@
     filter: brightness(1.2);
     
 }
+
 .icon{
     position:left;
+    
     top:5vw;
 }
 .image{
+
     position: relative;
     top:-1vw;
     margin-left: -18vw;
@@ -77,24 +87,29 @@
     background-image:url(medical.png);
     background-size: cover;
 }
+
 .principal{
-    position: absolute;
-    display: block;
-    height: 20vw;
-    width: 40%;
-    left:30%;
-    right:auto;
-    top:15vw;
-    background-image: linear-gradient( 110.3deg, rgba(49,55,82,1) 96.7%, rgba(73,93,109,1) 4.3%, rgba(49,55,82,1) 96.7% );
-    border-bottom-left-radius: 0.5vw;
-    border-bottom-right-radius: 0.5vw;
-    color:white;
-    font-size: 1vw;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
-    font-weight: 2vw;
-    border:solid 0.1vw black;
-    padding-top:0.5vw;
+    
+        position: absolute;
+        display: block;
+        height: 20vw;
+        width: 40%;
+        left:30%;
+        right:auto;
+        top:15vw;
+        background-image: linear-gradient( 110.3deg, rgba(49,55,82,1) 96.7%, rgba(73,93,109,1) 4.3%, rgba(49,55,82,1) 96.7% );
+        border-bottom-left-radius: 0.5vw;
+        border-bottom-right-radius: 0.5vw;
+        color:white;
+        font-size: 1vw;
+        font-family:Verdana, Geneva, Tahoma, sans-serif;
+        font-weight: 2vw;
+        border:solid 0.1vw black;
+        padding-top:0.5vw;
+    
+
 }
+
 article{
     border-bottom: solid 0.1vw black;
     padding-bottom: 0.5vw;
