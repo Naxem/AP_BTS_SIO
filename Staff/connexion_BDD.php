@@ -3,8 +3,8 @@
     {
         $host = 'localhost:3306';
         $db   = 'ap2';
-        $user = 'maxens';
-        $pass = 'azerty';
+        $user = 'root';
+        $pass = '';
         $dsn = "mysql:host=$host;dbname=$db";
         $options = [
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,

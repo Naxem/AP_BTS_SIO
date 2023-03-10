@@ -1,5 +1,10 @@
 <?php
     require('connexion_BDD.php');
+    session_start();
+    $_SESSION["date"] = date("Y-m-d");
+    // Définit le fuseau horaire à Paris
+    date_default_timezone_set('Europe/Paris');
+    $_SESSION["heure"] = date('H:i:s');
 
     if (isset($_POST["btn-supp"])) {
         $numSecu = $_POST["numSecuPatient"];
@@ -20,11 +25,18 @@
         return $stmt;
     }
 
+    function return_id_role($login) {
+        $pdo = connexion_bdd();
+        $stmt = $pdo ->prepare("select idRole from user where Login = ?;");
+        $stmt->execute(array($login));
+        return $stmt;
+      }
+
     //Conexion
     function authentification($login) {
         $pdo = connexion_bdd();
         $stmt=$pdo->prepare("SELECT count(Login), MDP FROM user
-        where login = ?;");
+        where Login = ?;");
         $stmt->execute(array($login));
         return $stmt;
     }
@@ -38,12 +50,12 @@
     }
 
     //logs
-    function log_conexion($label, $date, $user) {
+    function log_conexion($label, $date, $user, $heure, $idRole) {
         $pdo = connexion_bdd();
         $stmt = $pdo ->prepare("INSERT INTO logs
-        (Label, `Date`, `IdUser`)
-        VALUES(?, ?, ?);");
-        $stmt->execute(array($label, $date, $user));
+        (Label, `Date`, `IdUser`, heure, idRole)
+        VALUES(?, ?, ?, ?, ?);");
+        $stmt->execute(array($label, $date, $user, $heure, $idRole));
         return $stmt;
     }
 

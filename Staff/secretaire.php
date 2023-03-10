@@ -1,4 +1,5 @@
 <?php
+    //require("requete.php");
     $_SESSION["modif_patient"] = "false";
 ?>
 
@@ -19,7 +20,7 @@
             <input type="submit" value="Modifier un patient" name="modif">
         </form>
         <br>
-        <form action="../Formulaire/index.php" method="POST">
+        <form action="../Formulaire/requete.php" method="POST">
             <input type="submit" value="Ajouter un patient" name="add">
         </form>
     </section>

@@ -1,10 +1,5 @@
 <?php
     session_start();
-    echo $_SESSION["status"];
-    if(isset($_POST["btn-deco"])) {
-        session_destroy();
-        session_start();
-    }
 ?>
 
 <!DOCTYPE html>
@@ -12,6 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <title>Connexion</title>
     <link rel="stylesheet" href="../css/login.css">
 </head>
@@ -32,9 +28,15 @@
         </section>
 
         <form action="loginTest.php" method="POST">
+            <?php if(!empty($_SESSION["status"]) && $_SESSION['status'] != '') { ?>
+            <div class="erreur"><?= $_SESSION["status"] ?></div>
+            <?php } ?>
+
             <div class="menu">  
                 <div class="txt"><p> <p id='lgn'>Identifiant : <br></p><input type="text" name="txt-login" value="" class="champs"></p>
-                <p><p id='mdp'>Mot de passe :</p> <input type="password" name="txt-password" value=""class="champs"></p></div> 
+                <p><p id='mdp'>Mot de passe :</p> <input type="password" name="txt-password" value=""class="champs"></p></div>
+
+                <div class="g-recaptcha" name="recaptcha-response" data-sitekey="6LccV9gkAAAAAKxU2PUoYVhSRI14gpnjbzSGLNTK"></div><br/>
                 <p><input type="submit" name="btn-connexion" value="Connexion" class="bouton"></p>
             </div>
         </form>
