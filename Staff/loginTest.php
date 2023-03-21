@@ -19,6 +19,8 @@
         $_SESSION["status"] = "L'identifiant ou le mot de passe est incorrect.";
         header("Location: login");
     }
+    echo (password_verify($mdp, $pass));
+    echo "frfrrf";
 
     //test identifiant
     $authentification = authentification($login);

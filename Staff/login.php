@@ -40,15 +40,6 @@
                 <p><input type="submit" name="btn-connexion" value="Connexion" class="bouton"></p>
             </div>
         </form>
-
-        <!--<form action="loginTest.php" method="POST">
-            <div class="menu"> 
-                <p>Entrer les infos suivant pour créer un utilisateur</p> 
-                <div class="txt"><p> <p id='lgn'>Identifiant : <br></p><input type="text" name="txt-login" value="" class="champs"></p>
-                <p><p id='mdp'>Mot de passe :</p> <input type="password" name="txt-password" value=""class="champs"></p></div> 
-                <p><input type="submit" name="btn-crea-user" value="Creer un utilisateur" class="bouton"></p>
-            </div>
-        </form>-->
     </div>
 </body>
 </html>

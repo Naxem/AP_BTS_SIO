@@ -1,7 +1,7 @@
 <?php
     function connexion_bdd()
     {
-        $host = 'localhost:3306';
+        $host = 'localhost';
         $db   = 'ap2';
         $user = 'root';
         $pass = '';
