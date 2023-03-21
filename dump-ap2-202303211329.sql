@@ -122,7 +122,7 @@ CREATE TABLE `logs` (
 
 LOCK TABLES `logs` WRITE;
 /*!40000 ALTER TABLE `logs` DISABLE KEYS */;
-INSERT INTO `logs` VALUES ('Tentative de conexion de l\'utilisateur (Capchat non conforme)','2023-03-06',3,'13:44:06',3),('Conexion de l\'utilisateur','2023-03-06',3,'13:44:17',3),('Tentative de conexion de l\'utilisateur (Capchat non conforme)','2023-03-06',3,'13:44:17',3),('Tentative de conexion de l\'utilisateur (Capchat non conforme)','2023-03-06',3,'13:44:35',3),('Conexion de l\'utilisateur','2023-03-10',3,'09:02:13',3),('Tentative de conexion de l\'utilisateur (Capchat non conforme)','2023-03-10',3,'09:02:13',3),('Conexion de l\'utilisateur','2023-03-10',3,'11:04:27',3),('Tentative de conexion de l\'utilisateur (Capchat non conforme)','2023-03-10',3,'11:04:27',3),('Conexion de l\'utilisateur','2023-03-20',2,'15:55:26',1),('Tentative de conexion de l\'utilisateur (Capchat non conforme)','2023-03-20',2,'15:55:26',1);
+INSERT INTO `logs` VALUES ('Tentative de conexion de l\'utilisateur (Capchat non conforme)','2023-03-06',3,'13:44:06',3),('Conexion de l\'utilisateur','2023-03-06',3,'13:44:17',3),('Tentative de conexion de l\'utilisateur (Capchat non conforme)','2023-03-06',3,'13:44:17',3),('Tentative de conexion de l\'utilisateur (Capchat non conforme)','2023-03-06',3,'13:44:35',3),('Conexion de l\'utilisateur','2023-03-10',3,'09:02:13',3),('Tentative de conexion de l\'utilisateur (Capchat non conforme)','2023-03-10',3,'09:02:13',3),('Conexion de l\'utilisateur','2023-03-10',3,'11:04:27',3),('Tentative de conexion de l\'utilisateur (Capchat non conforme)','2023-03-10',3,'11:04:27',3),('Conexion de l\'utilisateur','2023-03-20',2,'15:55:26',1),('Tentative de conexion de l\'utilisateur (Capchat non conforme)','2023-03-20',2,'15:55:26',1),('Conexion de l\'utilisateur','2023-03-20',2,'17:09:31',1),('Tentative de conexion de l\'utilisateur (Capchat non conforme)','2023-03-20',2,'17:09:31',1);
 /*!40000 ALTER TABLE `logs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -287,13 +287,13 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
-  `IdUser` int NOT NULL,
+  `IdUser` int NOT NULL AUTO_INCREMENT,
   `Login` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `MDP` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `IdPersonnel` int NOT NULL,
   `IdRole` int DEFAULT NULL,
   PRIMARY KEY (`IdUser`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -323,4 +323,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-20 15:55:44
+-- Dump completed on 2023-03-21 13:29:57
