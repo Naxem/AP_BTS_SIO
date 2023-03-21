@@ -25,4 +25,5 @@
         </form>
     </section>
 </body>
+<script src="../JS/inactif.js"></script>
 </html>
