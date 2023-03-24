@@ -37,7 +37,7 @@ $result = $conn->query($query);
             </tbody>
         </table>
 
-        // Ajouter un médecin
+        <!--Ajouter un médecin-->
         <h2>Ajouter un médecin</h2>
         <form method='post' action=''>
             <label>Nom:</label>
@@ -48,11 +48,11 @@ $result = $conn->query($query);
             <input type='text' name='txt-login' value='' class='champs'><br>
             <label>Mot de passe :</label>
             <input type='text' name='txt-password' value='' class='champs'><br>
-            
+
             <input type='submit' name='submit' value='Ajouter'>
         </form>
 
-        // Supprimer un médecin
+        <!--Supprimer un médecin-->
         <h2>Supprimer un médecin</h2>
         <form method='post' action=''>
             <label>Médecin:</label>
