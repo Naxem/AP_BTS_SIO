@@ -3,7 +3,6 @@ let timeout;
 function resetTimer() {
   clearTimeout(timeout);
   timeout = setTimeout(logout, 4 * 60 * 1000); // 5 minutes
-  //timeout = setTimeout(logout, 10000);
 }
 
 function logout() {

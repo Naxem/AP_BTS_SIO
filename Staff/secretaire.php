@@ -25,6 +25,14 @@
             <input class="btnadd" type="submit" value="Ajouter un patient" name="add">
         </form>
     </section>
+
+    <section>
+        <h1>Données de la semaine</h1>
+            <form method="post" action="genPDF.php" target="blank">
+                <input type="date" name="date">
+                <input type="submit" value="Générer un PDF">
+            </form>
+    </section>
 </body>
 <script src="../JS/inactif.js"></script>
 </html>
