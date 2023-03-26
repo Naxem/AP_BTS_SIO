@@ -284,8 +284,8 @@ foreach($get_infos_patient as $res) {
                     <form action="requete.php" method="POST">
                        <div class="pread">
                             <!-- préadmission -->
-                            <h2>PRADMISSION</h2> 
-                            <label for="choixhospi">Type d'Hospitalisation </label><br> 
+                            <h2>PREADMISSION</h2> 
+                            <p>Type d'Hospitalisation </p><br> 
                             <select  name ="choixhospi" id="choixhospi">
                                 <?php
                                 switch($hospi) {
@@ -303,7 +303,7 @@ foreach($get_infos_patient as $res) {
                             </select>
                             <p>Date d'hospitalisation<br><input type="date" value="<?= $date_hospi ?>"  name="datehospi"value="jj-mm-aaaa" min="<?= $date ?>" required></p>
                             <p>Heure d'hospitalisation<br><input type="time" value="<?= $heure_hopi ?>" id="heurehospi" name="heurehospi" min="09:00" max="21:00" required></p>
-                            <label for="medecin">Medecin</label><br> 
+                            <p>Medecin</p><br> 
                             <select  name ="medecin" id="medecin">
                                 <?php 
                                 $i = 0;
@@ -335,7 +335,7 @@ foreach($get_infos_patient as $res) {
                     <div class="patient">
                         <!-- INFORMATION CONCERNANT LE PATIENT -->
                         <h2>Information concernant le patient</h2>   
-                        <label for="civ">Civilité</label><br>
+                        <p>Civilité</p><br>
                         <select name="civ" id="civ">
                             <?php
                             switch($civ_p) {
@@ -391,7 +391,7 @@ foreach($get_infos_patient as $res) {
                     <h2>INFORMATION COMPLEMENTAIRE</h2> 
                     <p>Organisme de sécurité sociale / Nom de la caisse d'assurance maladie*<br><input type="text" name="NomSecu" value="<?= $nom_secu ?>" required></p>
                     <p>Numéro de sécurité sociale*<br><input type="text" name="NumSecu" value="<?= $_SESSION["NumeSecu"] ?>" required></p>
-                    <label for="Assurance">Le patient est-il assuré?</label><br>
+                    <p>Le patient est-il assuré?</p><br>
                     <select name ="Assurance" id="Assurance">
                         <?php
                             switch($assurance) {
@@ -410,7 +410,7 @@ foreach($get_infos_patient as $res) {
                         ?>
                     </select>
                     <br>
-                    <label for="Ald"><br>Le patient est-il en ALD?</label><br>
+                    <p><br>Le patient est-il en ALD?</p><br>
                     <select name ="Ald" id="Ald">
                         <?php
                             switch($ald) {
@@ -430,7 +430,7 @@ foreach($get_infos_patient as $res) {
                     </select>
                     <p>Nom de la mutuelle ou de l'assurance<br><input type="text" name="NomMutu" value="<?= $nom_mutuelle ?>"></p>
                     <p>Numéro d'adhérent<br><input type="text" name=NumAdherent value="<?= $num_ad ?>"></p>
-                    <label for="TypeChambre">Chambre Particulière</label><br>
+                    <p>Chambre Particulière</p><br>
                     <select name ="TypeChambre" id="TypeChambre">
                         <?php
                             switch($type_chambre) {
@@ -447,7 +447,7 @@ foreach($get_infos_patient as $res) {
                                     <option value = "0">Non</option>'; 
                             }
                         ?>
-                    </select>
+                    </select><br>
                     <input type="submit" name="infoC" value="Envoyer"/>
                 </div>
                 </form>
@@ -489,7 +489,7 @@ foreach($get_infos_patient as $res) {
 
     <!--récup pièce joint-->
         <?php 
-            if($_SESSION["form"] == 4) {
+            if($_SESSION["form"] == 4) { // vérifer si le fichier exite déja et ne pas le remplacer par du vide si on rempli pas le form
         ?>
         <section class="page">
             <div class="globale">
