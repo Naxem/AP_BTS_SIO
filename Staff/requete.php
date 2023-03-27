@@ -24,7 +24,6 @@
         return $stmt;
     }
 
-    
     function return_id_perso($IDPerso){
         $pdo = connexion_bdd();
         $stmt = $pdo->prepare("SELECT hospi.DateHospi, hospi.HeureHospi, patients.PrenomPatient, patients.NomNaissance from patients inner join hospi on patients.NumSecu = hospi.NumSecu inner join personnel on hospi.IdPersonnel = personnel.IdPersonnel where personnel.IdPersonnel = ?;");

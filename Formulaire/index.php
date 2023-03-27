@@ -390,7 +390,7 @@ foreach($get_infos_patient as $res) {
                     <!-- Information complémentaire -->
                     <h2>INFORMATION COMPLEMENTAIRE</h2> 
                     <p>Organisme de sécurité sociale / Nom de la caisse d'assurance maladie*<br><input type="text" name="NomSecu" value="<?= $nom_secu ?>" required></p>
-                    <p>Numéro de sécurité sociale*<br><input type="text" name="NumSecu" value="<?= $_SESSION["NumeSecu"] ?>" required></p>
+                    <p>Numéro de sécurité sociale*<br><input disabled style="cursor: not-allowed;" type="text" name="NumSecu" value="<?= $_SESSION["NumeSecu"] ?>" required></p>
                     <p>Le patient est-il assuré?</p><br>
                     <select name ="Assurance" id="Assurance">
                         <?php
@@ -503,10 +503,20 @@ foreach($get_infos_patient as $res) {
                     <p>Carte vitale :*<br><input type="file" value="Choisir un fichier" name="CarteVitale"></p>
                     <p>Carte de mutuelle :*<br><input type="file" value="Choisir un fichier" name="CarteMutuel"></p>
 
-                    <p>Si enfant mineur seulment :</p>
-                    <p>Livrer de famille (pour enfant mineur) :<br><input type="file" value="Choisir un fichier" name="LivretFamille"></p>
-                    <p>Décision du juge :<br><input type="file" value="Choisir un fichier" name="DecisionJuge"></p>
-                    <p>Autorisation des 2 parents :<br><input type="file" value="Choisir un fichier" name="AutorisationSoin"></p>
+                    <?php 
+                    $diff = date_diff(date_create($_SESSION["naissance"]), date_create(date("Y-m-d")));
+                    if ($diff->format('%y') >= 18){
+                        $mineur = false;
+                    }
+                    else {
+                        $mineur = true;
+                    }
+                    if($mineur) {
+                    ?>
+                        <p>Livrer de famille (pour enfant mineur) :*<br><input type="file" value="Choisir un fichier" name="LivretFamille"></p>
+                        <p>Décision du juge :*<br><input type="file" value="Choisir un fichier" name="DecisionJuge"></p>
+                        <p>Autorisation des 2 parents :*<br><input type="file" value="Choisir un fichier" name="AutorisationSoin"></p>
+                    <?php } ?>
                     <input type="submit" name="pieceJiont_update" value="Envoyer"/>
                 </div>
             </form>

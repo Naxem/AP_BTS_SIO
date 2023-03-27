@@ -2,7 +2,7 @@
     function connexion_bdd()
     {
         $host = 'localhost';
-        $db   = 'ap';
+        $db   = 'ap2';
         $user = 'root';
         $pass = '';
         $dsn = "mysql:host=$host;dbname=$db";

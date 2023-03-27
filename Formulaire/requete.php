@@ -4,7 +4,7 @@ require("../Staff/connexion_BDD.php");
 session_start();
 
 /*récup form préad*/
-if (isset($_POST['pread'])) {
+if(isset($_POST['pread'])) {
     $_SESSION["preadd"] = $_POST["choixhospi"];
     $_SESSION["datehospi"] = $_POST["datehospi"];
     $_SESSION["heurehospi"] = $_POST["heurehospi"];
@@ -15,7 +15,7 @@ if (isset($_POST['pread'])) {
 }
 
 /*récup form info Patient*/
-if (isset($_POST['infoP'])) {
+if(isset($_POST['infoP'])) {
     $_SESSION["civ"] = $_POST["civ"];
     $_SESSION["nom"] = $_POST["nom"];
     $_SESSION["epouse"] = $_POST["epouse"];
@@ -32,9 +32,11 @@ if (isset($_POST['infoP'])) {
 }
 
 /*récup form info Assurance*/
-if (isset($_POST["infoC"])) {
+if(isset($_POST["infoC"])) {
     $_SESSION["NomSecu"] = $_POST["NomSecu"];
-    $_SESSION["NumSecu"] = $_POST["NumSecu"];
+    if($_SESSION["modif_patient"] == false) {
+        $_SESSION["NumSecu"] = $_POST["NumSecu"];
+    }
     $_SESSION["Assurance"] = $_POST["Assurance"];
     $_SESSION["ALD"] = $_POST["Ald"];
     $_SESSION["NomMutu"] = $_POST["NomMutu"];
@@ -46,7 +48,7 @@ if (isset($_POST["infoC"])) {
 }
 
 /*récup form coords*/
-if (isset($_POST['Coords'])) {
+if(isset($_POST['Coords'])) {
     $_SESSION["nomppre"] = $_POST["nomppre"];
     $_SESSION["prenomppre"] = $_POST["prenomppre"];
     $_SESSION["telppre"] = $_POST["telppre"];
@@ -54,8 +56,9 @@ if (isset($_POST['Coords'])) {
 
     $isExiste = testContact($_SESSION["telppre"], $_SESSION["adresseppre"], 
     $_SESSION["nomppre"], $_SESSION["prenomppre"]);
-    $row = $isExiste->fetch();
-    if ($row["count(*)"] < 0) {
+    $row = $isExiste->fetchAll();
+    foreach($row as $res) {$count = $res["count(*)"];}
+    if ($count > 0) {
         $PPre = getIdContact($_SESSION["nomppre"], $_SESSION["prenomppre"], 
         $_SESSION["telppre"], $_SESSION["adresseppre"]);
         $PersonnePre = $PPre->fetchAll();
@@ -76,36 +79,36 @@ if (isset($_POST['Coords'])) {
 
     $isExiste = testContact($_SESSION["telconf"], $_SESSION["adresseconf"], 
     $_SESSION["nomconf"], $_SESSION["prenomconf"]);
-    $row = $isExiste->fetch();
-    if ($row["count(*)"] < 0) {
+    $row = $isExiste->fetchAll();
+    foreach($row as $res) {$count = $res["count(*)"];}
+    if ($count > 0) {
         $PConf = getIdContact($_SESSION["nomconf"], $_SESSION["prenomconf"], 
         $_SESSION["telconf"], $_SESSION["adresseconf"]);
         $PerosnneConf = $PConf->fetchAll();
         foreach($PerosnneConf as $res) {$_SESSION["PersonneConf"] = $res["IdProche"];}
     }else {
-        insertContact($_SESSION["telconf"], $_SESSION["nomconf"], $_SESSION["prenomconf"], 
-        $_SESSION["adresseconf"]);
+        insertContact($_SESSION["telconf"], $_SESSION["adresseconf"], $_SESSION["nomconf"], $_SESSION["prenomconf"]);
         $PConf = getIdContact($_SESSION["nomconf"], $_SESSION["prenomconf"], 
         $_SESSION["telconf"], $_SESSION["adresseconf"]);
         $PerosnneConf = $PConf->fetchAll();
         foreach($PerosnneConf as $res) {$_SESSION["PersonneConf"] = $res["IdProche"];}
     }
     $_SESSION["form"] = 4;
-    header("location: index.php");
+    header("Location: index.php");
 }
 
 /*modification d'un patient*/
 if (isset($_POST["modif"])) {
     $_SESSION["modif_patient"] = true;
-    $_SESSION["NumeSecu"] = $_POST["numSecuPatient"];
-    header("Location: index");
+    $_SESSION["NumSecu"] = $_POST["numSecuPatient"];
+    header("Location: index.php");
 }
 
 /*add un patient*/
 if (isset($_POST["add"])) {
     $_SESSION["modif_patient"] = false;
     $_SESSION["NumeSecu"] = "";
-    header("Location: index");
+    header("Location: index.php");
 }
 
 /*récup form pièce joint*/
@@ -172,7 +175,7 @@ function insertContact($tel, $nom, $prenom, $adresse) {
     $stmt->execute(array($prenom, $nom, $adresse, $tel));
 }
 
-function testContact($tel, $nom, $prenom, $adresse) {
+function testContact($tel, $adresse, $nom, $prenom) {
     $pdo = connexion_bdd();
     $sql="select count(*) from proche p where tel = ? and Adresse = ?
     and Nom = ? and Prenom = ?;";
@@ -359,6 +362,14 @@ function update_patient($extentionValides) {
             updateFichier($_SESSION["NumSecu"],  $_FILES['CarteId']["name"], $_FILES['CarteMutuel']["name"], $_FILES['CarteMutuel']["name"], 0, 0, 0);
         }
     }
+
+    $pdo = connexion_bdd();
+    $sql="UPDATE piecesjointes
+    SET CarteId=?, CarteVitale=?, CarteMutuel=?, LivretFamille=?, AutorisationSoin=?, DecisionJuge=?
+    WHERE NumSecu=?;";
+    $stmt=$pdo->prepare($sql);
+    $stmt->execute(array($_FILES["CarteId"]["name"],  $_FILES["CarteVitale"]["name"], $_FILES["CarteMutuel"]["name"], 
+    $_FILES["LivretFamille"]["name"], $_FILES["AutorisationSoin"]["name"], $_FILES["DecisionJuge"]["name"], $_SESSION["NumSecu"]));
 }
 
 function uploadFichiers($extentionValides) {
