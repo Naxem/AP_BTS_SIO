@@ -62,7 +62,7 @@ if(isset($_POST['Coords'])) {
         $PPre = getIdContact($_SESSION["nomppre"], $_SESSION["prenomppre"], 
         $_SESSION["telppre"], $_SESSION["adresseppre"]);
         $PersonnePre = $PPre->fetchAll();
-        foreach($PerosnneConf as $res) {$_SESSION["PersonnePre"] = $res["IdProche"];}
+        foreach($PersonnePre as $res) {$_SESSION["PersonnePre"] = $res["IdProche"];}
     } else {
         insertContact($_SESSION["telppre"], $_SESSION["nomppre"], $_SESSION["prenomppre"], 
         $_SESSION["adresseppre"]);
@@ -101,7 +101,18 @@ if(isset($_POST['Coords'])) {
 if (isset($_POST["modif"])) {
     $_SESSION["modif_patient"] = true;
     $_SESSION["NumSecu"] = $_POST["numSecuPatient"];
-    header("Location: index.php");
+    
+    if(empty($_POST["numSecuPatient"])) {
+        header("Location: ../Staff/secretaire.php");
+    }
+    $getHospi = getHospi($_SESSION["NumSecu"]);
+    $get_hospi = $getHospi->fetchAll();
+    foreach($get_hospi as $res) {$isExiste = $res["PreAdd"];}
+    if(empty($isExiste)) {
+        header("Location: ../Staff/secretaire.php");
+    }else {
+        header("Location: index.php");
+    }
 }
 
 /*add un patient*/
@@ -364,6 +375,39 @@ function update_patient($extentionValides) {
     }
 
     $pdo = connexion_bdd();
+    $sql="select CarteId, CarteVitale, CarteMutuel, LivretFamille, AutorisationSoin, DecisionJuge
+    from piecesjointes;";
+    $stmt=$pdo->prepare($sql);
+    $stmt->execute();
+
+    foreach($stmt as $res) {
+        $CI = $res["CarteId"];
+        $CV = $res["CarteVitale"];
+        $CM = $res["CarteMutuel"];
+        $LF = $res["LivretFamille"];
+        $AS = $res["AutorisationSoin"];
+        $DJ = $res["DecisionJuge"];
+    }
+
+    if(empty($_FILES['CarteId']["name"])) {
+        $_FILES['CarteId']["name"] = $CI;
+    }
+    if(empty($_FILES['CarteVitale']["name"])) {
+        $_FILES['CarteVitale']["name"] = $CV;
+    }
+    if(empty($_FILES['CarteMutuel']["name"])) {
+        $_FILES['CarteMutuel']["name"] = $CM;
+    }
+    if(empty($_FILES['LivretFamille']["name"])) {
+        $_FILES['LivretFamille']["name"] = $LF;
+    }
+    if(empty($_FILES['AutorisationSoin']["name"])) {
+        $_FILES['AutorisationSoin']["name"] = $AS;
+    }
+    if(empty($_FILES['DecisionJuge']["name"])) {
+        $_FILES['DecisionJuge']["name"] = $DJ;
+    }
+
     $sql="UPDATE piecesjointes
     SET CarteId=?, CarteVitale=?, CarteMutuel=?, LivretFamille=?, AutorisationSoin=?, DecisionJuge=?
     WHERE NumSecu=?;";

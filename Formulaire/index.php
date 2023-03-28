@@ -217,7 +217,7 @@
 
 <!--modifie patient-->
 <?php
-$getHospi = getHospi($_SESSION["NumeSecu"]);
+$getHospi = getHospi($_SESSION["NumSecu"]);
 $get_hospi = $getHospi->fetchAll();
 foreach($get_hospi as $res) {
     $hospi = $res["PreAdd"];
@@ -227,7 +227,7 @@ foreach($get_hospi as $res) {
     if($date_hospi < $date) {$date = $date_hospi;}
 }
 
-$getInfosPatient = getInfosPatient($_SESSION["NumeSecu"]);
+$getInfosPatient = getInfosPatient($_SESSION["NumSecu"]);
 $get_infos_patient = $getInfosPatient->fetchAll();
 foreach($get_infos_patient as $res) {
     $civ_p = $res["Civ"];
@@ -263,7 +263,7 @@ foreach($get_infos_patient as $res) {
     }
 }
 
-$get_couverture_sociale = getCouvertureSociale($_SESSION["NumeSecu"]);
+$get_couverture_sociale = getCouvertureSociale($_SESSION["NumSecu"]);
 $get_infos_patient = $get_couverture_sociale->fetchAll();
 foreach($get_infos_patient as $res) {
     $nom_secu = $res["NomSecu"];
@@ -390,7 +390,7 @@ foreach($get_infos_patient as $res) {
                     <!-- Information complémentaire -->
                     <h2>INFORMATION COMPLEMENTAIRE</h2> 
                     <p>Organisme de sécurité sociale / Nom de la caisse d'assurance maladie*<br><input type="text" name="NomSecu" value="<?= $nom_secu ?>" required></p>
-                    <p>Numéro de sécurité sociale*<br><input disabled style="cursor: not-allowed;" type="text" name="NumSecu" value="<?= $_SESSION["NumeSecu"] ?>" required></p>
+                    <p>Numéro de sécurité sociale*<br><input disabled style="cursor: not-allowed;" type="text" name="NumSecu" value="<?= $_SESSION["NumSecu"] ?>" required></p>
                     <p>Le patient est-il assuré?</p><br>
                     <select name ="Assurance" id="Assurance">
                         <?php
