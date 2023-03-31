@@ -34,5 +34,5 @@
             </form>
     </section>
 </body>
-<script src="../JS/inactif.j"></script>
+<script src="../JS/inactif.js"></script>
 </html>
