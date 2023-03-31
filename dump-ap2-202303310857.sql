@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.19, for Win64 (x86_64)
 --
--- Host: localhost    Database: ap
+-- Host: localhost    Database: ap2
 -- ------------------------------------------------------
 -- Server version	8.0.31
 
@@ -64,7 +64,7 @@ CREATE TABLE `couverture_sociale` (
 
 LOCK TABLES `couverture_sociale` WRITE;
 /*!40000 ALTER TABLE `couverture_sociale` DISABLE KEYS */;
-INSERT INTO `couverture_sociale` VALUES (111,'Awa',1,0,'uwu','4323',0),(1231050954,'Caisse Nationale d\'Assurance Maladie',1,0,'MMA','78985465211',1);
+INSERT INTO `couverture_sociale` VALUES (111,'CPAM',1,0,'viaMedis','44848451782',0),(1112,'CPAM',1,1,'viaMedis','44846644644',1);
 /*!40000 ALTER TABLE `couverture_sociale` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -83,7 +83,9 @@ CREATE TABLE `hospi` (
   `DateHospi` date NOT NULL,
   `Etat` tinyint NOT NULL,
   PRIMARY KEY (`NumSecu`),
-  CONSTRAINT `hospi_FK` FOREIGN KEY (`NumSecu`) REFERENCES `couverture_sociale` (`NumSecu`)
+  KEY `hospi_FK_1` (`IdPersonnel`),
+  CONSTRAINT `hospi_FK` FOREIGN KEY (`NumSecu`) REFERENCES `couverture_sociale` (`NumSecu`),
+  CONSTRAINT `hospi_FK_1` FOREIGN KEY (`IdPersonnel`) REFERENCES `personnel` (`IdPersonnel`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -93,7 +95,7 @@ CREATE TABLE `hospi` (
 
 LOCK TABLES `hospi` WRITE;
 /*!40000 ALTER TABLE `hospi` DISABLE KEYS */;
-INSERT INTO `hospi` VALUES (111,2,'1','09:09:00','2024-05-26',0),(1231050954,2,'1','15:00:00','2023-04-26',0);
+INSERT INTO `hospi` VALUES (111,2,'1','09:09:00','2024-05-26',0),(1112,2,'1','09:09:00','2024-05-26',0);
 /*!40000 ALTER TABLE `hospi` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -112,7 +114,6 @@ CREATE TABLE `logs` (
   `idRole` int NOT NULL,
   KEY `logs_FK` (`IdUser`),
   KEY `logs_FK_1` (`idRole`),
-  CONSTRAINT `logs_FK` FOREIGN KEY (`IdUser`) REFERENCES `user` (`IdUser`),
   CONSTRAINT `logs_FK_1` FOREIGN KEY (`idRole`) REFERENCES `roles` (`IdRole`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -123,7 +124,7 @@ CREATE TABLE `logs` (
 
 LOCK TABLES `logs` WRITE;
 /*!40000 ALTER TABLE `logs` DISABLE KEYS */;
-INSERT INTO `logs` VALUES ('Conexion de l\'utilisateur','2023-03-24',2,'15:03:28',3),('Conexion de l\'utilisateur','2023-03-26',2,'17:44:19',3),('Tentative de conexion de l\'utilisateur','2023-03-26',3,'17:44:34',2),('Tentative de conexion de l\'utilisateur','2023-03-26',3,'17:44:56',2),('Conexion de l\'utilisateur','2023-03-26',3,'17:46:44',2),('Tentative de conexion de l\'utilisateur','2023-03-26',1,'17:47:12',1),('Conexion de l\'utilisateur','2023-03-26',1,'17:48:49',1);
+INSERT INTO `logs` VALUES ('Tentative de conexion de l\'utilisateur (Capchat non conforme)','2023-03-31',2,'08:54:27',3),('Conexion de l\'utilisateur','2023-03-31',2,'08:54:51',3);
 /*!40000 ALTER TABLE `logs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -167,7 +168,7 @@ CREATE TABLE `patients` (
 
 LOCK TABLES `patients` WRITE;
 /*!40000 ALTER TABLE `patients` DISABLE KEYS */;
-INSERT INTO `patients` VALUES (1,'tel','telle','maxens','2003-06-26','80 rue du chat',808440,24879,'trouville','max@outlook.fr',0,1,1,111),(1,'Dupond','marly','Mathéo','2019-01-15',' 15 rue du pont',682934850,59870,'Caen','matheo.dupond@gmail.com',1,102,101,1231050954);
+INSERT INTO `patients` VALUES (1,'Depond','Moulin','Mathéo','2003-06-26','10 rue de france',789695030,24879,'trouville','max@gmail.com',0,1,2,111),(2,'Bourst','','Marie','2015-05-22','5 rue des hirondelles',650307850,24879,'trouville','b.marie@hotmail.fr',1,3,3,1112);
 /*!40000 ALTER TABLE `patients` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -228,6 +229,7 @@ CREATE TABLE `piecesjointes` (
 
 LOCK TABLES `piecesjointes` WRITE;
 /*!40000 ALTER TABLE `piecesjointes` DISABLE KEYS */;
+INSERT INTO `piecesjointes` VALUES (111,'Id_Card_111','mutuel_Card_111','mutuel_Card_111','0','0','0'),(1112,'Id_Card_1112','mutuel_Card_1112','mutuel_Card_1112','Livret_Famille_1112','Id_Card_1112','Id_Card_1112');
 /*!40000 ALTER TABLE `piecesjointes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -245,7 +247,7 @@ CREATE TABLE `proche` (
   `Tel` int NOT NULL,
   `IdProche` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`IdProche`)
-) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -254,7 +256,7 @@ CREATE TABLE `proche` (
 
 LOCK TABLES `proche` WRITE;
 /*!40000 ALTER TABLE `proche` DISABLE KEYS */;
-INSERT INTO `proche` VALUES ('Flo','tel','80 rue du chat',782978164,1),('Max','Tel',' 18 rue du concorde',789284720,101),('Shophie','Durant','50 rue du marché',789298430,102),('Max','Tel',' 18 rue du concorde',789284720,103),('Shophie','Durant','50 rue du marché',789298430,104);
+INSERT INTO `proche` VALUES ('Max','Tel','20 rue du lila',785986540,1),('Nicolas','Dupond','5 rue des champignion',650620444,2),('Audrey','Dupond','5 rue des champignion',650320477,3);
 /*!40000 ALTER TABLE `proche` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -319,7 +321,9 @@ CREATE TABLE `user` (
   `MDP` varchar(100) NOT NULL,
   `IdPersonnel` int NOT NULL,
   `IdRole` int DEFAULT NULL,
-  PRIMARY KEY (`IdUser`)
+  PRIMARY KEY (`IdUser`),
+  KEY `user_FK` (`IdRole`),
+  CONSTRAINT `user_FK` FOREIGN KEY (`IdRole`) REFERENCES `roles` (`IdRole`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -334,11 +338,11 @@ INSERT INTO `user` VALUES (1,'yassine.verriez','$argon2id$v=19$m=65536,t=4,p=1$V
 UNLOCK TABLES;
 
 --
--- Dumping events for database 'ap'
+-- Dumping events for database 'ap2'
 --
 
 --
--- Dumping routines for database 'ap'
+-- Dumping routines for database 'ap2'
 --
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -350,4 +354,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-26 17:57:09
+-- Dump completed on 2023-03-31  8:57:05

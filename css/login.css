@@ -57,7 +57,7 @@ form{
 
 form input{
     width: 100%;
-    max-width: 450px;
+    max-width: 400px;
     padding:15px;
     height: 40px;
     margin:auto;
@@ -87,10 +87,6 @@ form .bouton:hover{
     transition: 0.3s ease ;
 }
 
-
-
-
-
 .boutonR{
     background-color: white ;
     height: 8vh;
@@ -100,7 +96,6 @@ form .bouton:hover{
     font-size: 1.2vw;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-weight: 2vw;
-    
 }
 
 
@@ -115,17 +110,23 @@ form .bouton:hover{
     -webkit-transition-duration: 1000ms;
     border-style: solid;
     filter: brightness(1.2);
-   
 }
 
+.div_captcha {
+    width: 80%;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
 
-
-
-
-
-
-
-
-
-
-
+.div_captcha .chiffre {
+    position: absolute;
+    right: 10px;
+    padding: 20px;
+    background-color: var(--c-bleu);
+    color: #FFFFFF;
+    border-radius: 5px;
+    z-index: 3;
+    text-decoration: line-through 2px black;
+    font-weight: 500;
+}
