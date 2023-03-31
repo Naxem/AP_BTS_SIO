@@ -232,7 +232,7 @@ function  hospi($NomSecu, $NumSecu, $Assurance, $ALD, $NomMutu, $NumAdherent, $T
     $stmt=$pdo->prepare($sql);
     $stmt->execute(array($NumSecu, $nompersonnel, $preadd, $heurehospi, $datehospi, 0));
 
-   // header("Location: ../Staff/secretaire.php");
+    header("Location: ../Staff/secretaire.php");
 }
 
 function  hospi_update($NomSecu, $NumSecu, $Assurance, $ALD, $NomMutu, $NumAdherent, $TypeChambre, 
