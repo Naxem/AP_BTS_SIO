@@ -7,13 +7,6 @@
         $modif = false;
     }
 
-    if (($_SESSION["form"] != 0) or ($_SESSION["form"] != null)) {
-        $_SESSION["form"] = $_SESSION["form"];
-    }
-    else {
-        $_SESSION["form"] = 0;
-    }
-
     $date = date("jj-mm-aaaa");
     $getmedecin = getMedecin()->fetchAll();
 ?>
@@ -164,17 +157,17 @@
                 <div class="contact">
                     <!-- Information personnes a prevenir-->
                     <h2>COORDONNEES PERSONNE A PREVENIR</h2> 
-                    <p>Nom<br><input type="text" name="nomppre" require/></p>
-                    <p>Prénom<br><input type="text" name="prenomppre" require /></p>
-                    <p>Téléphone<br><input type="tel" name="telppre" require/></p>
-                    <p>Adresse<br><input type="text" name="adresseppre" require/></p>
+                    <p>Nom*<br><input type="text" name="nomppre"/></p>
+                    <p>Prénom*<br><input type="text" name="prenomppre" required/></p>
+                    <p>Téléphone*<br><input type="tel" name="telppre" required/></p>
+                    <p>Adresse*<br><input type="text" name="adresseppre" required/></p>
 
                     <!-- Coordonnees personnes de confiance-->
                     <h2>COORDONNEES PERSONNES DE CONFIANCE</h2>
-                    <p>Nom*<br><input type="text" name="nomconf" require/></p>
-                    <p>Prénom*<br><input type="text" name="prenomconf" require/></p>
-                    <p>Téléphone*<br><input type="tel" name="telconf" require/></p>
-                    <p>Adresse*<br><input type="text" name="adresseconf" require/></p>
+                    <p>Nom<br><input type="text" name="nomconf"/></p>
+                    <p>Prénom<br><input type="text" name="prenomconf"/></p>
+                    <p>Téléphone<br><input type="tel" name="telconf"/></p>
+                    <p>Adresse<br><input type="text" name="adresseconf"/></p>
                     <input type="submit" name="Coords" value="Envoyer" class="bouton"/>
                 </div>
                 </form>
@@ -200,10 +193,20 @@
                     <p>Carte vitale :*<br><input type="file" value="Choisir un fichier" name="CarteVitale" require></p>
                     <p>Carte de mutuelle :*<br><input type="file" value="Choisir un fichier" name="CarteMutuel" require></p>
 
-                    <p>Si enfant mineur seulment :</p>
-                    <p>Livrer de famille (pour enfant mineur) :<br><input type="file" value="Choisir un fichier" name="LivretFamille"></p>
-                    <p>Décision du juge :<br><input type="file" value="Choisir un fichier" name="DecisionJuge"></p>
-                    <p>Autorisation des 2 parents :<br><input type="file" value="Choisir un fichier" name="AutorisationSoin"></p>
+                    <?php 
+                    $diff = date_diff(date_create($_SESSION["naissance"]), date_create(date("Y-m-d")));
+                    if ($diff->format('%y') >= 18){
+                        $mineur = false;
+                    }
+                    else {
+                        $mineur = true;
+                    }
+                    if($mineur) {
+                    ?>
+                        <p>Livrer de famille :*<br><input type="file" value="Choisir un fichier" name="LivretFamille"></p>
+                        <p>Décision du juge :*<br><input type="file" value="Choisir un fichier" name="DecisionJuge"></p>
+                        <p>Autorisation des 2 parents :*<br><input type="file" value="Choisir un fichier" name="AutorisationSoin"></p>
+                    <?php } ?>
                     <input type="submit" name="pieceJiont" value="Envoyer"/>
                 </div>
             </form>
@@ -467,17 +470,17 @@ foreach($get_infos_patient as $res) {
                 <div class="contact">
                     <!-- Information personnes a prevenir-->
                     <h2>COORDONNEES PERSONNE A PREVENIR</h2> 
-                    <p>Nom<br><input type="text" name="nomppre" value="<?= $pre_nom ?>" required/></p>
-                    <p>Prénom<br><input type="text" name="prenomppre" value="<?= $pre_prenom ?>" required /></p>
-                    <p>Téléphone<br><input type="tel" name="telppre" value="<?= $pre_tel ?>" required/></p>
-                    <p>Adresse<br><input type="text" name="adresseppre" value="<?= $pre_adresse ?>" required/></p>
+                    <p>Nom*<br><input type="text" name="nomppre" value="<?= $pre_nom ?>" required/></p>
+                    <p>Prénom*<br><input type="text" name="prenomppre" value="<?= $pre_prenom ?>" required /></p>
+                    <p>Téléphone*<br><input type="tel" name="telppre" value="<?= $pre_tel ?>" required/></p>
+                    <p>Adresse*<br><input type="text" name="adresseppre" value="<?= $pre_adresse ?>" required/></p>
 
                     <!-- Coordonnees personnes de confiance-->
                     <h2>COORDONNEES PERSONNES DE CONFIANCE</h2>
-                    <p>Nom*<br><input type="text" name="nomconf" value="<?= $conf_nom ?>" required/></p>
-                    <p>Prénom*<br><input type="text" name="prenomconf" value="<?= $conf_prenom ?>" required/></p>
-                    <p>Téléphone*<br><input type="tel" name="telconf" value="<?= $conf_tel ?>" required/></p>
-                    <p>Adresse*<br><input type="text" name="adresseconf" value="<?= $conf_adresse ?>" required/></p>
+                    <p>Nom<br><input type="text" name="nomconf" value="<?= $conf_nom ?>"/></p>
+                    <p>Prénom<br><input type="text" name="prenomconf" value="<?= $conf_prenom ?>"/></p>
+                    <p>Téléphone<br><input type="tel" name="telconf" value="<?= $conf_tel ?>"/></p>
+                    <p>Adresse<br><input type="text" name="adresseconf" value="<?= $conf_adresse ?>"/></p>
                     <input type="submit" name="Coords" value="Envoyer" class="bouton"/>
                 </div>
                 </form>

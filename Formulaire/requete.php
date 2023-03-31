@@ -103,6 +103,7 @@ if(isset($_POST['Coords'])) {
 if (isset($_POST["modif"])) {
     $_SESSION["modif_patient"] = true;
     $_SESSION["NumSecu"] = $_POST["numSecuPatient"];
+    $_SESSION["form"] = 0;
     
     if(empty($_POST["numSecuPatient"])) {
         header("Location: ../Staff/secretaire.php");
@@ -121,6 +122,7 @@ if (isset($_POST["modif"])) {
 if (isset($_POST["add"])) {
     $_SESSION["modif_patient"] = false;
     $_SESSION["NumeSecu"] = "";
+    $_SESSION["form"] = 0;
     header("Location: index.php");
 }
 
@@ -230,7 +232,7 @@ function  hospi($NomSecu, $NumSecu, $Assurance, $ALD, $NomMutu, $NumAdherent, $T
     $stmt=$pdo->prepare($sql);
     $stmt->execute(array($NumSecu, $nompersonnel, $preadd, $heurehospi, $datehospi, 0));
 
-    header("Location: ../Staff/secretaire.php");
+   // header("Location: ../Staff/secretaire.php");
 }
 
 function  hospi_update($NomSecu, $NumSecu, $Assurance, $ALD, $NomMutu, $NumAdherent, $TypeChambre, 
@@ -323,7 +325,7 @@ function update_patient($extentionValides) {
     $isMinieur = isMineur($_SESSION["NumSecu"]);
     $mineur = $isMinieur->fetchAll();
     foreach($mineur as $res) {$m = $res["Mineur"];}
-    if ($m = "1") {
+    if ($m == "1") {
         // LivretFamille
         $fichierUpload = strtolower(substr(strchr($_FILES["LivretFamille"]["name"], '.'), 1));
         if(in_array($fichierUpload, $extentionValides)) {
@@ -419,7 +421,6 @@ function update_patient($extentionValides) {
 }
 
 function uploadFichiers($extentionValides) {
-    echo "fhruhffuyhfr";
     //Insert in bdd
     hospi($_SESSION["NomSecu"], $_SESSION["NumSecu"], $_SESSION["Assurance"], 
         $_SESSION["ALD"], $_SESSION["NomMutu"], $_SESSION["NumAdherent"], $_SESSION["TypeChambre"], 
@@ -427,8 +428,6 @@ function uploadFichiers($extentionValides) {
         $_SESSION["naissance"], $_SESSION["adresse"], $_SESSION["cp"], $_SESSION["ville"], 
         $_SESSION["mail"], $_SESSION["tel"], $_SESSION["preadd"], $_SESSION["datehospi"], 
         $_SESSION["heurehospi"], $_SESSION["nompersonnel"], $_SESSION["PersonneConf"], $_SESSION["PersonnePre"]);
-
-        echo "fhruhffuyhfr22";
 
     //Id Card
     $fichierUpload = strtolower(substr(strchr($_FILES["CarteId"]["name"], '.'), 1));
@@ -475,7 +474,6 @@ function uploadFichiers($extentionValides) {
     $isMinieur = isMineur($_SESSION["NumSecu"]);
     $mineur = $isMinieur->fetchAll();
     foreach($mineur as $res) {$m = $res["Mineur"];}
-    echo $m;
     if ($m == "1") {
         // LivretFamille
         $fichierUpload = strtolower(substr(strchr($_FILES["LivretFamille"]["name"], '.'), 1));
@@ -525,8 +523,7 @@ function uploadFichiers($extentionValides) {
         }
     } else {
         if(($cardId) && ($cardMutuel) && ($cardVitual)) {
-            echo "fff";
-            uploadFichier($_SESSION["NumSecu"],  $_FILES['CarteId']["name"], $_FILES['CarteMutuel']["name"], $_FILES['CarteMutuel']["name"], 0, 0, 0);
+            uploadFichier($_SESSION["NumSecu"],  $_FILES['CarteId']["name"], $_FILES['CarteMutuel']["name"], $_FILES['CarteMutuel']["name"],0,0,0);
         }
     }
 }
