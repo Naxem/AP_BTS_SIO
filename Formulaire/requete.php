@@ -2,6 +2,8 @@
 
 require("../Staff/connexion_BDD.php");
 session_start();
+error_reporting(E_ALL); 
+ini_set("display_errors", 1);
 
 /*récup form préad*/
 if(isset($_POST['pread'])) {
@@ -213,13 +215,7 @@ function  hospi($NomSecu, $NumSecu, $Assurance, $ALD, $NomMutu, $NumAdherent, $T
     VALUES(?,?,?,?,?,?,?);";
     $stmt=$pdo->prepare($sql);
     $stmt->execute(array($NomSecu, $NumSecu, $Assurance, $ALD, $NomMutu, $NumAdherent, $TypeChambre));
-
-    $sql="INSERT INTO hospi
-    (DateHospi, HeureHospi, PreAdd, IdPersonnel, NumSecu)
-    VALUES(?,?,?,?,?);";
-    $stmt=$pdo->prepare($sql);
-    $stmt->execute(array($datehospi, $heurehospi, $preadd, $nompersonnel, $NumSecu));
-
+    
     $sql="INSERT INTO patients 
     (Civ, NomNaissance, NomEpouse, PrenomPatient, NaissancePatient, AdressePatient,
     TelPatient,CPPatient, VillePatient, MailPatient, NumSecu, Mineur, IdProcheConf, idProchePre)
@@ -228,7 +224,13 @@ function  hospi($NomSecu, $NumSecu, $Assurance, $ALD, $NomMutu, $NumAdherent, $T
     $stmt->execute(array($civ, $nom, $epouse, $prenom, $naissance, $adresse, $tel, $cp, $ville, 
     $mail, $NumSecu, $age, $PersonneConf, $PersonnePre));
 
-    header("Location: ../Staff/secretaire");
+    $sql="INSERT INTO hospi
+    (NumSecu, IdPersonnel, PreAdd, HeureHospi, DateHospi, Etat)
+    VALUES(?,?,?,?,?,?);";
+    $stmt=$pdo->prepare($sql);
+    $stmt->execute(array($NumSecu, $nompersonnel, $preadd, $heurehospi, $datehospi, 0));
+
+    header("Location: ../Staff/secretaire.php");
 }
 
 function  hospi_update($NomSecu, $NumSecu, $Assurance, $ALD, $NomMutu, $NumAdherent, $TypeChambre, 
@@ -264,7 +266,7 @@ function  hospi_update($NomSecu, $NumSecu, $Assurance, $ALD, $NomMutu, $NumAdher
     $stmt->execute(array($civ, $nom, $epouse, $prenom, $naissance, $adresse, $tel, $cp, $ville, 
     $mail, $age, $PersonneConf, $PersonnePre, $NumSecu));
 
-    header("Location: ../Staff/secretaire");
+    header("Location: ../Staff/secretaire.php");
 }
 
 function update_patient($extentionValides) {
@@ -417,6 +419,7 @@ function update_patient($extentionValides) {
 }
 
 function uploadFichiers($extentionValides) {
+    echo "fhruhffuyhfr";
     //Insert in bdd
     hospi($_SESSION["NomSecu"], $_SESSION["NumSecu"], $_SESSION["Assurance"], 
         $_SESSION["ALD"], $_SESSION["NomMutu"], $_SESSION["NumAdherent"], $_SESSION["TypeChambre"], 
@@ -424,6 +427,8 @@ function uploadFichiers($extentionValides) {
         $_SESSION["naissance"], $_SESSION["adresse"], $_SESSION["cp"], $_SESSION["ville"], 
         $_SESSION["mail"], $_SESSION["tel"], $_SESSION["preadd"], $_SESSION["datehospi"], 
         $_SESSION["heurehospi"], $_SESSION["nompersonnel"], $_SESSION["PersonneConf"], $_SESSION["PersonnePre"]);
+
+        echo "fhruhffuyhfr22";
 
     //Id Card
     $fichierUpload = strtolower(substr(strchr($_FILES["CarteId"]["name"], '.'), 1));

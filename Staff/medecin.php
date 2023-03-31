@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 
+
+
 <?php 
+
+error_reporting(E_ALL); 
+ini_set("display_errors", 1);
+
     require_once('./requete.php');
     $IDPerso = $_SESSION["IdPersonnel"];
     $return_nom = return_nom($IDPerso);
@@ -10,6 +16,7 @@
     $IDPerso = $_SESSION["IdPersonnel"];
     $return_id_perso = return_id_perso($IDPerso);
     $return_id_perso = $return_id_perso->fetchAll();
+    
     
        
     
@@ -55,7 +62,9 @@
             <div class="titre" id='titre'> Panel Medecin</div>
 
             <div class="case" id="CaseAccueil">
-                <p> <?php echo 'Bonjour '. $return_nom['PrenomPersonnel'] ?></p>
+            
+                <p> <?php 
+                echo 'Bonjour '. $return_nom['PrenomPersonnel'] ?></p>
             </div>
 
             <div class="case" id="CaseTab">

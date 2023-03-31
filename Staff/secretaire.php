@@ -13,8 +13,10 @@
     <title>Pannel Secrétaire</title>
 </head>
 <body>
+    <a href="deconexion.php">Déconection</a>
     <section class="section-main">
         <h1>Secrétaire</h1>
+
 
         <form action="../Formulaire/requete.php" method="POST">
             <input class="text" type="text" name="numSecuPatient" placeholder="Entrez le numéro de sécurité social du patient">
