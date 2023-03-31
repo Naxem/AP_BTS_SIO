@@ -24,9 +24,9 @@ DROP TABLE IF EXISTS `civ`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `civ` (
   `IdCiv` int NOT NULL AUTO_INCREMENT,
-  `Labelle` varchar(100) NOT NULL,
+  `Labelle` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`IdCiv`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -48,14 +48,14 @@ DROP TABLE IF EXISTS `couverture_sociale`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `couverture_sociale` (
   `NumSecu` bigint NOT NULL,
-  `NomSecu` varchar(100) NOT NULL,
+  `NomSecu` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `Assurance` tinyint(1) NOT NULL,
   `ALD` tinyint(1) NOT NULL,
-  `NomMutu` varchar(100) NOT NULL,
-  `NumAdherent` varchar(100) NOT NULL,
+  `NomMutu` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `NumAdherent` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `TypeChambre` tinyint(1) NOT NULL,
   PRIMARY KEY (`NumSecu`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -78,7 +78,7 @@ DROP TABLE IF EXISTS `hospi`;
 CREATE TABLE `hospi` (
   `NumSecu` bigint NOT NULL,
   `IdPersonnel` int DEFAULT NULL,
-  `PreAdd` varchar(100) NOT NULL,
+  `PreAdd` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `HeureHospi` time NOT NULL,
   `DateHospi` date NOT NULL,
   `Etat` tinyint NOT NULL,
@@ -86,7 +86,7 @@ CREATE TABLE `hospi` (
   KEY `hospi_FK_1` (`IdPersonnel`),
   CONSTRAINT `hospi_FK` FOREIGN KEY (`NumSecu`) REFERENCES `couverture_sociale` (`NumSecu`),
   CONSTRAINT `hospi_FK_1` FOREIGN KEY (`IdPersonnel`) REFERENCES `personnel` (`IdPersonnel`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -107,7 +107,7 @@ DROP TABLE IF EXISTS `logs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `logs` (
-  `Label` varchar(255) NOT NULL,
+  `Label` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `Date` date NOT NULL,
   `IdUser` int NOT NULL,
   `heure` time NOT NULL,
@@ -115,7 +115,7 @@ CREATE TABLE `logs` (
   KEY `logs_FK` (`IdUser`),
   KEY `logs_FK_1` (`idRole`),
   CONSTRAINT `logs_FK_1` FOREIGN KEY (`idRole`) REFERENCES `roles` (`IdRole`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -124,7 +124,7 @@ CREATE TABLE `logs` (
 
 LOCK TABLES `logs` WRITE;
 /*!40000 ALTER TABLE `logs` DISABLE KEYS */;
-INSERT INTO `logs` VALUES ('Tentative de conexion de l\'utilisateur (Capchat non conforme)','2023-03-31',2,'08:54:27',3),('Conexion de l\'utilisateur','2023-03-31',2,'08:54:51',3);
+INSERT INTO `logs` VALUES ('Tentative de conexion de l\'utilisateur (Capchat non conforme)','2023-03-31',2,'08:54:27',3),('Conexion de l\'utilisateur','2023-03-31',2,'08:54:51',3),('Conexion de l\'utilisateur','2023-03-31',2,'09:01:08',3),('Tentative de conexion de l\'utilisateur (Capchat non conforme)','2023-03-31',2,'09:26:04',3),('Tentative de conexion de l\'utilisateur (Capchat non conforme)','2023-03-31',2,'09:27:13',3),('Tentative de conexion de l\'utilisateur (Capchat non conforme)','2023-03-31',2,'09:29:35',3),('Conexion de l\'utilisateur','2023-03-31',2,'09:29:53',3),('Conexion de l\'utilisateur','2023-03-31',2,'09:33:50',3);
 /*!40000 ALTER TABLE `logs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -137,15 +137,15 @@ DROP TABLE IF EXISTS `patients`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `patients` (
   `Civ` int DEFAULT NULL,
-  `NomNaissance` varchar(100) NOT NULL,
-  `NomEpouse` varchar(100) NOT NULL,
-  `PrenomPatient` varchar(100) NOT NULL,
+  `NomNaissance` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `NomEpouse` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `PrenomPatient` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `NaissancePatient` date NOT NULL,
-  `AdressePatient` varchar(100) NOT NULL,
+  `AdressePatient` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `TelPatient` int NOT NULL,
   `CPPatient` int NOT NULL,
-  `VillePatient` varchar(100) NOT NULL,
-  `MailPatient` varchar(255) DEFAULT NULL,
+  `VillePatient` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `MailPatient` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `Mineur` tinyint(1) DEFAULT NULL,
   `IdProcheConf` int DEFAULT NULL,
   `IdProchePre` int DEFAULT NULL,
@@ -159,7 +159,7 @@ CREATE TABLE `patients` (
   CONSTRAINT `patients_FK_conf` FOREIGN KEY (`IdProcheConf`) REFERENCES `proche` (`IdProche`),
   CONSTRAINT `patients_FK_pre` FOREIGN KEY (`IdProchePre`) REFERENCES `proche` (`IdProche`),
   CONSTRAINT `patients_FK_Proche` FOREIGN KEY (`IdProchePre`) REFERENCES `proche` (`IdProche`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -182,15 +182,15 @@ DROP TABLE IF EXISTS `personnel`;
 CREATE TABLE `personnel` (
   `IdPersonnel` int NOT NULL AUTO_INCREMENT,
   `IdService` int DEFAULT NULL,
-  `NomPersonnel` varchar(100) NOT NULL,
-  `PrenomPersonnel` varchar(100) NOT NULL,
+  `NomPersonnel` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `PrenomPersonnel` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `roles` int NOT NULL,
   PRIMARY KEY (`IdPersonnel`),
   KEY `personnel_FK` (`IdService`),
   KEY `personnel_FK_1` (`roles`),
   CONSTRAINT `personnel_FK` FOREIGN KEY (`IdService`) REFERENCES `services` (`idService`),
   CONSTRAINT `personnel_FK_1` FOREIGN KEY (`roles`) REFERENCES `roles` (`IdRole`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -212,15 +212,15 @@ DROP TABLE IF EXISTS `piecesjointes`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `piecesjointes` (
   `NumSecu` bigint NOT NULL,
-  `CarteId` varchar(255) NOT NULL,
-  `CarteVitale` varchar(255) NOT NULL,
-  `CarteMutuel` varchar(255) NOT NULL,
-  `LivretFamille` varchar(255) DEFAULT NULL,
-  `AutorisationSoin` varchar(255) DEFAULT NULL,
-  `DecisionJuge` varchar(255) DEFAULT NULL,
+  `CarteId` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `CarteVitale` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `CarteMutuel` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `LivretFamille` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `AutorisationSoin` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `DecisionJuge` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   PRIMARY KEY (`NumSecu`),
   CONSTRAINT `piecesjointes_FK` FOREIGN KEY (`NumSecu`) REFERENCES `couverture_sociale` (`NumSecu`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -241,13 +241,13 @@ DROP TABLE IF EXISTS `proche`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `proche` (
-  `Prenom` varchar(100) NOT NULL,
-  `Nom` varchar(100) NOT NULL,
-  `Adresse` varchar(100) NOT NULL,
+  `Prenom` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `Nom` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `Adresse` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `Tel` int NOT NULL,
   `IdProche` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`IdProche`)
-) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -269,9 +269,9 @@ DROP TABLE IF EXISTS `roles`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `roles` (
   `IdRole` int NOT NULL,
-  `Libelle` varchar(100) NOT NULL,
+  `Libelle` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`IdRole`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -293,9 +293,9 @@ DROP TABLE IF EXISTS `services`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `services` (
   `idService` int NOT NULL,
-  `label` varchar(100) NOT NULL,
+  `label` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`idService`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -317,14 +317,14 @@ DROP TABLE IF EXISTS `user`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
   `IdUser` int NOT NULL AUTO_INCREMENT,
-  `Login` varchar(100) NOT NULL,
-  `MDP` varchar(100) NOT NULL,
+  `Login` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `MDP` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `IdPersonnel` int NOT NULL,
   `IdRole` int DEFAULT NULL,
   PRIMARY KEY (`IdUser`),
   KEY `user_FK` (`IdRole`),
   CONSTRAINT `user_FK` FOREIGN KEY (`IdRole`) REFERENCES `roles` (`IdRole`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -354,4 +354,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-31  8:57:05
+-- Dump completed on 2023-03-31 10:28:03
