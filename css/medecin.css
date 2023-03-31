@@ -99,7 +99,7 @@
     flex-direction: column;
 }
 
-.menu .titre{
+.titre{
     display: flex;
     position: absolute;
     top:15vh;
@@ -107,7 +107,71 @@
     font-size: 50px;
 }
 
-.menu .case{
+#CaseTab{
+    width: 100%;
+    width: 40vw;
+    padding:1rem;
+    background-color:#0353a4cc;
+    border-radius: 2px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    color:white;
+    transition:all 0.5s ease;
+}
+
+
+#CaseGraphe{
+    width: 100%;
+    width: 40vw;
+    height: 50vh;
+    padding:1rem;
+    background-color:#0353a4cc;
+    border-radius: 2px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    transition:all 0.5s ease;
+}
+
+.accueil{
+    text-decoration: underline;
+    cursor: pointer;
+    transition: all 2s ease;
+}
+
+.accueil:hover{
+   scale:1.2;
+   transition: all 2s ease;
+}
+
+.admis{
+    
+    cursor: pointer;
+    transition: all 2s ease;
+
+}
+
+.admis:hover{
+    scale:1.2;
+    transition: all 2s ease;
+}
+
+.diag{
+    
+    cursor: pointer;
+    transition: all 2s ease;
+}
+
+.diag:hover{
+    scale:1.2;
+   transition: all 2s ease;
+}
+
+
+#CaseAccueil{
     width: 100%;
     width: 40vw;
     height: 50vh;
@@ -117,6 +181,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    transition:all 0.5s ease;
     
 }
 
@@ -127,3 +192,52 @@
     color:white;
 }
 
+/*tableau stats*/
+
+
+.tableau{
+    display: block;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;;
+    max-width: 800px;;
+}
+
+.tableau .titretab{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    min-width: 150px;
+    font-size: 30px;
+
+}
+
+
+.tableau .titretab .lignetab{
+    font-size: 30px;
+    font-family: 'josefin', sans-serif;
+    border-bottom: #1e1e1e 2px solid;
+    min-width: 152px;
+    text-align: center;
+}
+
+.tableau .tab{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    min-width:400px;
+    
+}
+
+
+
+.tableau .tab .lignetab{
+    font-size: 25px;
+    font-family: 'josefin', sans-serif;
+    min-width: 150px;
+    max-width: 150px;
+    border-bottom:1px solid #1e1e1e;
+    text-align: center;
+    padding:1rem 0 1rem 0;
+}
