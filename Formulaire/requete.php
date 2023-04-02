@@ -287,7 +287,7 @@ function update_patient($extentionValides) {
         $nomF = $_FILES["CarteId"]["name"];
         $fichier = $nomF.'.'.$fichierUpload;
         $cheminFichier = "../Fichiers/".$fichier;
-        move_uploaded_file($_FILES['CarteId']["tmp_name"], $cheminFichier);
+        //move_uploaded_file($_FILES['CarteId']["tmp_name"], $cheminFichier);
 
         if(is_readable($cheminFichier)) {
             $cardId = true;
@@ -300,7 +300,7 @@ function update_patient($extentionValides) {
         $nomF = $_FILES["CarteVitale"]["name"];
         $fichier = $nomF.'.'.$fichierUpload;
         $cheminFichier = "../Fichiers/".$fichier;
-        move_uploaded_file($_FILES['CarteVitale']["tmp_name"], $cheminFichier);
+        //move_uploaded_file($_FILES['CarteVitale']["tmp_name"], $cheminFichier);
 
         if(is_readable($cheminFichier)) {
             $cardVitual = true;
@@ -314,7 +314,7 @@ function update_patient($extentionValides) {
         $nomF = $_FILES["CarteMutuel"]["name"];
         $fichier = $nomF.'.'.$fichierUpload;
         $cheminFichier = "../Fichiers/".$fichier;
-        move_uploaded_file($_FILES['CarteMutuel']["tmp_name"], $cheminFichier);
+        //move_uploaded_file($_FILES['CarteMutuel']["tmp_name"], $cheminFichier);
 
         if(is_readable($cheminFichier)) {
             $cardMutuel = true;
@@ -333,7 +333,7 @@ function update_patient($extentionValides) {
             $nomF = $_FILES["LivretFamille"]["name"];
             $fichier = $nomF.'.'.$fichierUpload;
             $cheminFichier = "../Fichiers/".$fichier;
-            move_uploaded_file($_FILES['LivretFamille']["tmp_name"], $cheminFichier);
+            //move_uploaded_file($_FILES['LivretFamille']["tmp_name"], $cheminFichier);
 
             if(is_readable($cheminFichier)) {
                 $livreFamille = true;
@@ -347,7 +347,7 @@ function update_patient($extentionValides) {
             $nomF = $_FILES["DecisionJuge"]["name"];
             $fichier = $nomF.'.'.$fichierUpload;
             $cheminFichier = "../Fichiers/".$fichier;
-            move_uploaded_file($_FILES['DecisionJuge']["tmp_name"], $cheminFichier);
+            //move_uploaded_file($_FILES['DecisionJuge']["tmp_name"], $cheminFichier);
 
             if(is_readable($cheminFichier)) {
                 $deciJuge = true;
@@ -361,7 +361,7 @@ function update_patient($extentionValides) {
             $nomF = $_FILES["AutorisationSoin"]["name"];
             $fichier = $nomF.'.'.$fichierUpload;
             $cheminFichier = "../Fichiers/".$fichier;
-            move_uploaded_file($_FILES['AutorisationSoin']["tmp_name"], $cheminFichier);
+            //move_uploaded_file($_FILES['AutorisationSoin']["tmp_name"], $cheminFichier);
             
             if(is_readable($cheminFichier)) {
                 $autoSion = true;
@@ -436,7 +436,7 @@ function uploadFichiers($extentionValides) {
         $nomF = $_FILES["CarteId"]["name"];
         $fichier = $nomF.'.'.$fichierUpload;
         $cheminFichier = "../Fichiers/".$fichier;
-        move_uploaded_file($_FILES['CarteId']["tmp_name"], $cheminFichier);
+        //move_uploaded_file($_FILES['CarteId']["tmp_name"], $cheminFichier);
 
         if(is_readable($cheminFichier)) {
             $cardId = true;
@@ -449,7 +449,7 @@ function uploadFichiers($extentionValides) {
         $nomF = $_FILES["CarteVitale"]["name"];
         $fichier = $nomF.'.'.$fichierUpload;
         $cheminFichier = "../Fichiers/".$fichier;
-        move_uploaded_file($_FILES['CarteVitale']["tmp_name"], $cheminFichier);
+        //move_uploaded_file($_FILES['CarteVitale']["tmp_name"], $cheminFichier);
 
         if(is_readable($cheminFichier)) {
             $cardVitual = true;
@@ -463,7 +463,7 @@ function uploadFichiers($extentionValides) {
         $nomF = $_FILES["CarteMutuel"]["name"];
         $fichier = $nomF.'.'.$fichierUpload;
         $cheminFichier = "../Fichiers/".$fichier;
-        move_uploaded_file($_FILES['CarteMutuel']["tmp_name"], $cheminFichier);
+        //move_uploaded_file($_FILES['CarteMutuel']["tmp_name"], $cheminFichier);
 
         if(is_readable($cheminFichier)) {
             $cardMutuel = true;
@@ -482,7 +482,7 @@ function uploadFichiers($extentionValides) {
             $nomF = $_FILES["LivretFamille"]["name"];
             $fichier = $nomF.'.'.$fichierUpload;
             $cheminFichier = "../Fichiers/".$fichier;
-            move_uploaded_file($_FILES['LivretFamille']["tmp_name"], $cheminFichier);
+            //move_uploaded_file($_FILES['LivretFamille']["tmp_name"], $cheminFichier);
 
             if(is_readable($cheminFichier)) {
                 $livreFamille = true;
@@ -496,7 +496,7 @@ function uploadFichiers($extentionValides) {
             $nomF = $_FILES["DecisionJuge"]["name"];
             $fichier = $nomF.'.'.$fichierUpload;
             $cheminFichier = "../Fichiers/".$fichier;
-            move_uploaded_file($_FILES['DecisionJuge']["tmp_name"], $cheminFichier);
+            //move_uploaded_file($_FILES['DecisionJuge']["tmp_name"], $cheminFichier);
 
             if(is_readable($cheminFichier)) {
                 $deciJuge = true;
@@ -510,21 +510,24 @@ function uploadFichiers($extentionValides) {
             $nomF = $_FILES["AutorisationSoin"]["name"];
             $fichier = $nomF.'.'.$fichierUpload;
             $cheminFichier = "../Fichiers/".$fichier;
-            move_uploaded_file($_FILES['AutorisationSoin']["tmp_name"], $cheminFichier);
+            //move_uploaded_file($_FILES['AutorisationSoin']["tmp_name"], $cheminFichier);
             
             if(is_readable($cheminFichier)) {
                 $autoSion = true;
             } else {$autoSion = false;}
         }
 
-        if(($autoSion) && ($deciJuge) && ($cardId) && ($cardMutuel) && ($cardVitual) && ($livreFamille)) {
+       /*if(($autoSion) && ($deciJuge) && ($cardId) && ($cardMutuel) && ($cardVitual) && ($livreFamille)) {
             uploadFichier($_SESSION["NumSecu"],  $_FILES['CarteId']["tmp_name"], $_FILES['CarteMutuel']["tmp_name"], $_FILES['CarteMutuel']["tmp_name"],
             $_FILES['LivretFamille']["tmp_name"], $_FILES['AutorisationSoin']["tmp_name"], $_FILES['DecisionJuge']["tmp_name"]);
-        }
+        }*/
+        uploadFichier($_SESSION["NumSecu"],  $_FILES['CarteId']["tmp_name"], $_FILES['CarteVitale']["tmp_name"], $_FILES['CarteMutuel']["tmp_name"],
+            $_FILES['LivretFamille']["tmp_name"], $_FILES['AutorisationSoin']["tmp_name"], $_FILES['DecisionJuge']["tmp_name"]);
     } else {
-        if(($cardId) && ($cardMutuel) && ($cardVitual)) {
+        /*if(($cardId) && ($cardMutuel) && ($cardVitual)) {
             uploadFichier($_SESSION["NumSecu"],  $_FILES['CarteId']["name"], $_FILES['CarteMutuel']["name"], $_FILES['CarteMutuel']["name"],0,0,0);
-        }
+        }*/
+        uploadFichier($_SESSION["NumSecu"],  $_FILES['CarteId']["name"], $_FILES['CarteVitale']["name"], $_FILES['CarteMutuel']["name"],0,0,0);
     }
 }
 
