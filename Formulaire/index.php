@@ -54,7 +54,7 @@
                                 <option value="1">Pré-admission</option>
                                 <option value="2">Hospitalisation</option> 
                             </select>
-                            <p>Date d'hospitalisation :<br><input type="date"  name="datehospi"value="jj-mm-aaaa" min="<?= $date ?>" required></p>
+                            <p>Date d'hospitalisation :<br><input type="date" id="dateH"  name="datehospi" value="jj-mm-aaaa" min="<?= $date ?>" required></p>
                             <p>Heure d'hospitalisation :<br><input type="time" id="heurehospi" name="heurehospi" min="09:00" max="21:00" required></p>
                             <p>Medecin :</p><br> 
                             <select name ="medecin" id="medecin">
@@ -70,6 +70,12 @@
                     </form>
                 </div>
             </section>
+            <script>
+                var date = new Date();
+                date.setFullYear(date.getFullYear() + 1);
+                var maxDate = date.toISOString().slice(0,10);
+                document.getElementById("dateH").max = maxDate;
+            </script>
         <?php 
             }
         ?>
