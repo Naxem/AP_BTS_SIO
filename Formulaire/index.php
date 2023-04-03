@@ -50,11 +50,11 @@
                             <!-- préadmission -->
                             <h2>PREADMISSION</h2> 
                             <p>Type d'Hospitalisation :</p><br> 
-                            <select  name ="choixhospi" id="choixhospi">
+                            <select name ="choixhospi" id="choixhospi">
                                 <option value="1">Pré-admission</option>
                                 <option value="2">Hospitalisation</option> 
                             </select>
-                            <p>Date d'hospitalisation :<br><input type="date"  name="datehospi"value="jj-mm-aaaa" min="<?= $date ?>" require></p>
+                            <p>Date d'hospitalisation :<br><input type="date"  name="datehospi"value="jj-mm-aaaa" min="<?= $date ?>" required></p>
                             <p>Heure d'hospitalisation :<br><input type="time" id="heurehospi" name="heurehospi" min="09:00" max="21:00" required></p>
                             <p>Medecin :</p><br> 
                             <select name ="medecin" id="medecin">
@@ -90,15 +90,15 @@
                             <option value="2">Mme</option>
                             <option value="3">Autre</option>
                         </select>
-                        <p>Nom de naissance*<br><input type="text" name="nom" require/></p>
+                        <p>Nom de naissance*<br><input type="text" name="nom" required/></p>
                         <p>Nom d'épouse<br><input type="text" name="epouse"/></p>
-                        <p>Prénom*<br><input type="text" name="prenom" require/></p>
-                        <p>Date de naissance*<br><input type="date" name="naissance" require/></p>
-                        <p>Adresse*<br><input name="adresse" rows="1" cols="50" require></p>
-                        <p>CP*<br><input type="text" name="cp" require/></p>
-                        <p>Ville*<br><input type="text" name="ville" require/></p>
+                        <p>Prénom*<br><input type="text" name="prenom" required/></p>
+                        <p>Date de naissance*<br><input type="date" name="naissance" required/></p>
+                        <p>Adresse*<br><input name="adresse" rows="1" cols="50" required></p>
+                        <p>CP*<br><input type="text" name="cp" pattern="[0-9]{10}" maxlength="5" required/></p>
+                        <p>Ville*<br><input type="text" name="ville" required/></p>
                         <p>Email<br><input type="email" name="mail"/></p>
-                        <p>Téléphone*<br><input type="tel" name="tel" require/></p>
+                        <p>Téléphone*<br><input type="tel" name="tel" maxlength="10" required/></p>
                         <input type="submit" name="infoP" value="Envoyer"/>
                     </div>
                 </form>
@@ -118,8 +118,8 @@
                 <div class="info">
                     <!-- Information complémentaire -->
                     <h2>INFORMATION COMPLEMENTAIRE</h2> 
-                    <p>Organisme de sécurité sociale / Nom de la caisse d'assurance maladie*<br><input type="text" name="NomSecu" require></p>
-                    <p>Numéro de sécurité sociale*<br><input type="text" name="NumSecu" require></p>
+                    <p>Organisme de sécurité sociale / Nom de la caisse d'assurance maladie*<br><input type="text" name="NomSecu" required></p>
+                    <p>Numéro de sécurité sociale*<br><input type="text" maxlength="15" name="NumSecu" required></p>
                     <p>Le patient est-il assuré ?</p><br>
                     <select name ="Assurance" id="Assurance">
                         <option value = "1">Oui</option>
@@ -132,7 +132,7 @@
                         <option value = "0">Non</option>
                     </select>
                     <p>Nom de la mutuelle ou de l'assurance<br><input type="text" name="NomMutu"></p>
-                    <p>Numéro d'adhérent<br><input type="text" name=NumAdherent></p>
+                    <p>Numéro d'adhérent<br><input type="text" maxlength="15" name=NumAdherent></p>
                     <p>Chambre Particulière</p><br>
                     <select name ="TypeChambre" id="TypeChambre">
                         <option value = "1">Oui</option>
@@ -159,14 +159,14 @@
                     <h2>COORDONNEES PERSONNE A PREVENIR</h2> 
                     <p>Nom*<br><input type="text" name="nomppre"/></p>
                     <p>Prénom*<br><input type="text" name="prenomppre" required/></p>
-                    <p>Téléphone*<br><input type="tel" name="telppre" required/></p>
+                    <p>Téléphone*<br><input type="tel" maxlength="10" name="telppre" required/></p>
                     <p>Adresse*<br><input type="text" name="adresseppre" required/></p>
 
                     <!-- Coordonnees personnes de confiance-->
                     <h2>COORDONNEES PERSONNES DE CONFIANCE</h2>
                     <p>Nom<br><input type="text" name="nomconf"/></p>
                     <p>Prénom<br><input type="text" name="prenomconf"/></p>
-                    <p>Téléphone<br><input type="tel" name="telconf"/></p>
+                    <p>Téléphone<br><input type="tel" maxlength="10" name="telconf"/></p>
                     <p>Adresse<br><input type="text" name="adresseconf"/></p>
                     <input type="submit" name="Coords" value="Envoyer" class="bouton"/>
                 </div>
@@ -369,10 +369,10 @@ foreach($get_infos_patient as $res) {
                         <p>Prénom*<br><input type="text" name="prenom" required value="<?= $prenom_p ?>"/></p>
                         <p>Date de naissance*<br><input type="date" name="naissance" value="<?= $date_naissance_p ?>" required/></p>
                         <p>Adresse*<br><input name="adresse" rows="1" cols="50" value="<?= $adresse_p ?>" required></p>
-                        <p>CP*<br><input type="text" name="cp" value="<?= $cp_p ?>" required/></p>
+                        <p>CP*<br><input type="text" name="cp" maxlength="5" value="<?= $cp_p ?>" required/></p>
                         <p>Ville*<br><input type="text" name="ville" value="<?= $ville_p ?>" required/></p>
                         <p>Email<br><input type="email" name="mail" value="<?= $mail_p ?>"/></p>
-                        <p>Téléphone*<br><input type="tel" name="tel" value="<?= $tel_p ?>" required/></p>
+                        <p>Téléphone*<br><input type="tel"  maxlength="10" name="tel" value="<?= $tel_p ?>" required/></p>
                         <input type="submit" name="infoP" value="Envoyer"/>
                     </div>
                 </form>
@@ -393,7 +393,7 @@ foreach($get_infos_patient as $res) {
                     <!-- Information complémentaire -->
                     <h2>INFORMATION COMPLEMENTAIRE</h2> 
                     <p>Organisme de sécurité sociale / Nom de la caisse d'assurance maladie*<br><input type="text" name="NomSecu" value="<?= $nom_secu ?>" required></p>
-                    <p>Numéro de sécurité sociale*<br><input disabled style="cursor: not-allowed;" type="text" name="NumSecu" value="<?= $_SESSION["NumSecu"] ?>" required></p>
+                    <p>Numéro de sécurité sociale*<br><input disabled style="cursor: not-allowed;" maxlength="15" type="text" name="NumSecu" value="<?= $_SESSION["NumSecu"] ?>" required></p>
                     <p>Le patient est-il assuré?</p><br>
                     <select name ="Assurance" id="Assurance">
                         <?php
@@ -432,7 +432,7 @@ foreach($get_infos_patient as $res) {
                         ?>
                     </select>
                     <p>Nom de la mutuelle ou de l'assurance<br><input type="text" name="NomMutu" value="<?= $nom_mutuelle ?>"></p>
-                    <p>Numéro d'adhérent<br><input type="text" name=NumAdherent value="<?= $num_ad ?>"></p>
+                    <p>Numéro d'adhérent<br><input type="text" name="NumAdherent" maxlength="15" value="<?= $num_ad ?>"></p>
                     <p>Chambre Particulière</p><br>
                     <select name ="TypeChambre" id="TypeChambre">
                         <?php
@@ -472,14 +472,14 @@ foreach($get_infos_patient as $res) {
                     <h2>COORDONNEES PERSONNE A PREVENIR</h2> 
                     <p>Nom*<br><input type="text" name="nomppre" value="<?= $pre_nom ?>" required/></p>
                     <p>Prénom*<br><input type="text" name="prenomppre" value="<?= $pre_prenom ?>" required /></p>
-                    <p>Téléphone*<br><input type="tel" name="telppre" value="<?= $pre_tel ?>" required/></p>
+                    <p>Téléphone*<br><input type="tel"  maxlength="10" name="telppre" value="<?= $pre_tel ?>" required/></p>
                     <p>Adresse*<br><input type="text" name="adresseppre" value="<?= $pre_adresse ?>" required/></p>
 
                     <!-- Coordonnees personnes de confiance-->
                     <h2>COORDONNEES PERSONNES DE CONFIANCE</h2>
                     <p>Nom<br><input type="text" name="nomconf" value="<?= $conf_nom ?>"/></p>
                     <p>Prénom<br><input type="text" name="prenomconf" value="<?= $conf_prenom ?>"/></p>
-                    <p>Téléphone<br><input type="tel" name="telconf" value="<?= $conf_tel ?>"/></p>
+                    <p>Téléphone<br><input type="tel" maxlength="10" name="telconf" value="<?= $conf_tel ?>"/></p>
                     <p>Adresse<br><input type="text" name="adresseconf" value="<?= $conf_adresse ?>"/></p>
                     <input type="submit" name="Coords" value="Envoyer" class="bouton"/>
                 </div>
