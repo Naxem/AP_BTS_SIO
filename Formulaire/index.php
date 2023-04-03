@@ -95,7 +95,7 @@
                         <p>Prénom*<br><input type="text" name="prenom" required/></p>
                         <p>Date de naissance*<br><input type="date" name="naissance" required/></p>
                         <p>Adresse*<br><input name="adresse" rows="1" cols="50" required></p>
-                        <p>CP*<br><input type="text" name="cp" pattern="[0-9]{10}" maxlength="5" required/></p>
+                        <p>CP*<br><input type="text" name="cp" maxlength="5" required/></p>
                         <p>Ville*<br><input type="text" name="ville" required/></p>
                         <p>Email<br><input type="email" name="mail"/></p>
                         <p>Téléphone*<br><input type="tel" name="tel" maxlength="10" required/></p>
