@@ -537,4 +537,5 @@ foreach($get_infos_patient as $res) {
 	</section>
     <?php } ?>
 </body>
+    <script src="../JS/inactif.js"></script>
 </html>
