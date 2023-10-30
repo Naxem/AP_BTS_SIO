@@ -3,7 +3,6 @@
 
     $login = $_POST['txt-login'];
     $mdp = $_POST['txt-password'];
-    $reponse = $_POST["reponse"];
     $_SESSION["status"] = "";
 
     if (isset($_POST["btn-crea-user"])) {
@@ -34,8 +33,16 @@
             break;
         case 1 :
             if(password_verify($mdp, $pass)) {                
-                if((isset($_POST['reponse'])) && !empty($_POST['reponse'])) {
-                    if($_SESSION['captcha'] == $reponse) {
+                if(isset($_POST['g-recaptcha-response'])) {
+                    $captcha = $_POST['g-recaptcha-response'];
+                    $secretKey = "6LcsftUkAAAAABXDlssDfWOwqTY89vLyMzs_luJX";
+                    $ip = $_SERVER['REMOTE_ADDR'];
+                    // post request to server
+                    $url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . urlencode($secretKey) .  '&response=' . urlencode($captcha);
+                    $response = file_get_contents($url);
+                    $responseKeys = json_decode($response,true);
+                    // should return JSON with success as true
+                    if($responseKeys["success"]) {
                         //log
                         log_conexion("Conexion de l'utilisateur", $_SESSION["date"], $_SESSION["idUser"], $_SESSION["heure"], $_SESSION["idRole"]);
                         switch($_SESSION["idRole"]) {
@@ -60,7 +67,6 @@
                         $_SESSION["status"] = "Capchat non conforme";
                         log_conexion("Tentative de conexion de l'utilisateur (Capchat non conforme)", $_SESSION["date"], $_SESSION["idUser"], $_SESSION["heure"], $_SESSION["idRole"]);
                         header("Location: login.php");
-                        echo $reponse;
                         break;
                     }
                 }

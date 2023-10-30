@@ -1,7 +1,5 @@
 <?php
     session_start();
-    $code = random_int(1000, 9999);
-    $_SESSION["captcha"] = $code;
 ?>
 
 <!DOCTYPE html>
@@ -48,12 +46,7 @@
                 <input type="password" name="txt-password" value="" class="champs">
                 <br>
 
-                <div class="div_captcha">
-                    <input type="text" maxlength="4" minlength="1" name="reponse" pattern="[0-9]*" placeholder="Réponse au captcha">
-                    <div class="chiffre">
-                        <?= $code ?>
-                    </div>
-                </div>
+                <div class="g-recaptcha" name="recaptcha-response" data-sitekey="6LcsftUkAAAAAFWMl89rImuOTCdUmG7Si9LnMZr1"></div><br/>
                 <input type="submit" name="btn-connexion" value="Connexion" class="bouton">
         </form>
     </div>
